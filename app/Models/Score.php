@@ -11,6 +11,6 @@ class Score extends Model
 
     protected $table = 'scores';
 
-    protected $fillable = ['puntuacion','fecha_puntuacion','book_id','author_id'];
+    protected $fillable = ['score','score_date','book_id','author_id'];
 
 }
