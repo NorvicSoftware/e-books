@@ -29,8 +29,8 @@ return new class extends Migration
 
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('set null');
-            $table->foreign('editorial_id')->references('id')->on('editororials')->onDelete('set null');
-            
+            $table->foreign('editorial_id')->references('id')->on('editorials')->onDelete('set null');
+
             $table->timestamps();
         });
     }
