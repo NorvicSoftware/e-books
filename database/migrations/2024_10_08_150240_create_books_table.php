@@ -16,7 +16,7 @@ return new class extends Migration
 
             $table->string('title', 75)->unique();
             $table->string('subtitle', 250);
-            $table->double('verion', 5, 1)->defaul(1.0);
+            $table->decimal('version', 5, 1)->defaul(1.0);
             $table->date('publish_date');
             $table->decimal('price_sale', 10, 2)->defaul(0.00);
             $table->enum('lenguage', ['Español', 'English', 'Portugues'])->default('Español');
