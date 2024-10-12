@@ -18,6 +18,11 @@ return new class extends Migration
             $table->foreignId('user_id')->constrained()->onDelate('cascade');
             //relationalship
             $table->morphs('commentable');
+
+
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
+
             
             $table->timestamps();
             
