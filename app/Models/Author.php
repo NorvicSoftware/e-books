@@ -12,4 +12,8 @@ class Author extends Model
     protected $fillable = [
         'nationality', 'birth_date', 'biography', 'website', 'social_network', 'user_id'
     ];
+
+    public function comment(){
+        return $this->morphMany(Comment::class, 'commentable');
+    }
 }
