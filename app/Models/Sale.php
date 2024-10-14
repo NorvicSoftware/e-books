@@ -14,7 +14,7 @@ class Sale extends Model
 
     protected $table = "sales";
 
-    protected $fillable = ['sale_price', 'sale_date'];
+    protected $fillable = ['customers_id', 'promotion_id', 'price', 'sale_date'];
 
     public function books(): HasMany
     {
