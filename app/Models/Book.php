@@ -16,4 +16,8 @@ class Book extends Model
     public function comment(){
         return $this->morphMany(Comment::class, 'commentable');
     }
+
+    public function users(){
+        return $this->morphToMany(User::class, 'userable');
+    }
 }
