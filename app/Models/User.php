@@ -44,4 +44,8 @@ class User extends Authenticatable
             'password' => 'hashed',
         ];
     }
+
+    public function books(){
+        return $this->morphedByMany(Book::class, 'userable');
+    }
 }
