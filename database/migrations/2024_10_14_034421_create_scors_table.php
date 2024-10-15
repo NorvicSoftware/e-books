@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('scors', function (Blueprint $table) {
             $table->id();
-            $table->string('score', 15);
+            $table->enum('number_star', [1,2,3,4,5]);
             $table->date('score_date');
             // $table->unsignedBigInteger('book_id');
             // $table->unsignedBigInteger('author_id');

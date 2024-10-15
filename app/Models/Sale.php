@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class Sale extends Model
 {
@@ -14,16 +15,16 @@ class Sale extends Model
 
     protected $table = "sales";
 
-    protected $fillable = ['customers_id', 'promotion_id', 'price', 'sale_date'];
+    protected $fillable = ['customer_id', 'promotion_id', 'price', 'sale_date'];
 
-    public function books(): HasMany
+    public function books(): BelongsToMany
     {
-        return $this->hasMany(Book::class);
+        return $this->belongsToMany(Book::class);
     }
 
-    public function client(): BelongsTo
+    public function customer(): BelongsTo
     {
-        return $this->belongsTo(Client::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function promotion(): BelongsTo

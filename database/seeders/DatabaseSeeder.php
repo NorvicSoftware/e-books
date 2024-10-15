@@ -5,6 +5,8 @@ namespace Database\Seeders;
 use App\Models\User;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
+use App\Models\Editorial;
+use App\Models\Author;
 
 class DatabaseSeeder extends Seeder
 {
@@ -16,6 +18,14 @@ class DatabaseSeeder extends Seeder
         $this->call(GenreSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CommentSeeder::class);
-        $this->call(UserableSeeder::class);
+        // $this->call(UserableSeeder::class);
+        Editorial::factory(100)->create();
+        User::factory(50)->create();
+        Author::factory(50)->create();
+
+
+
+
+        
     }
 }
