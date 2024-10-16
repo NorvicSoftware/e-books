@@ -18,11 +18,11 @@ class AuthorFactory extends Factory
     public function definition(): array
     {
         return [
-            'nationality' => $this->faker->country(),
+            'nationality' => substr($this->faker->country(), 0, 35),
             'birth_date' => $this->faker->date(),
             'biography' => $this->faker->paragraphs(3, true),
-            'website' => $this->faker->url(),
-            'social_network' => $this->faker->url(),
+            'website' => substr($this->faker->url(), 0, 75),
+            'social_network' => substr($this->faker->url(), 0, 75),
             'user_id' => User::all()->random()->id,
 
         ];

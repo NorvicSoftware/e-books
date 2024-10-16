@@ -17,9 +17,9 @@ class EditorialFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => $this->faker->company(),
+            'name' => substr($this->faker->unique()->company(), 0, 35),
             'email' => $this->faker->email(),
-            'phone' => $this->faker->phoneNumber(),
+            'phone' => substr($this->faker->phoneNumber(), 0, 15),
             'address' => $this->faker->address(),
         ];
     }
