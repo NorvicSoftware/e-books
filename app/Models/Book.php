@@ -30,8 +30,12 @@ class Book extends Model
     }
 
 
-    public function comment(){
+    public function comments(): MorphMany {
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function scores(): MorphMany {
+        return $this->morphMany(Score::class, 'scoreable');
     }
 
     // public function users(){
