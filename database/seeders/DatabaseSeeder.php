@@ -19,6 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CommentSeeder::class);
         $this->call(AuthorSeeder::class);
+        $this->call(CustomerSeeder::class);
         // $this->call(UserableSeeder::class);
         Editorial::factory(100)->create();
         User::factory(50)->create();
