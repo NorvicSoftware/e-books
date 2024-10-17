@@ -21,6 +21,16 @@ class Book extends Model
         return $this->belongsTo(Author::class);
     }
 
+    public function Editorial(): BelongsTo
+    {
+        return $this->belongsTo(Editorial::class);
+    }
+
+    public function Genre(): BelongsTo
+    {
+        return $this->belongsTo(Genre::class);
+    }
+
     public function sales() :BelongsToMany {
         return $this->belongsToMany(Sale::class);
     }
