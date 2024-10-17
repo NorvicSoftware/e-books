@@ -32,12 +32,12 @@ class Book extends Model
         return $this->belongsTo(Author::class);
     }
 
-    public function Editorial(): BelongsTo
+    public function editorial(): BelongsTo
     {
         return $this->belongsTo(Editorial::class);
     }
 
-    public function Genre(): BelongsTo
+    public function genre(): BelongsTo
     {
         return $this->belongsTo(Genre::class);
     }
