@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphOne;
+use Illuminate\Database\Eloquent\Relations\MorphMany;
 
 class Author extends Model
 {
@@ -28,10 +29,12 @@ class Author extends Model
         return $this->morphOne(Image::class, 'imageable');
     }
 
-
-
-    public function comment(){
+    public function comments(): MorphMany{
         return $this->morphMany(Comment::class, 'commentable');
+    }
+
+    public function scores(): MorphMany {
+        return $this->morphMany(Score::class, 'scoreable');
     }
 
 

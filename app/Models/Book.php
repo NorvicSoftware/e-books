@@ -51,14 +51,13 @@ class Book extends Model
         return $this->morphMany(Image::class, 'imageable');
     }
 
-    public function comments(): HasMany
+    public function comments(): MorphMany
     {
-        return $this->hasMany(Comment::class, 'commentable');
+        return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function scors(): BelongsToMany
-    {
-        return $this->belongsToMany(Score::class);
+    public function scores(): MorphMany {
+        return $this->morphMany(Score::class, 'scoreable');
     }
 
     // public function users(){
