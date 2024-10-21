@@ -11,7 +11,10 @@ class Editorial extends Model
     use HasFactory;
     protected $table = 'editorials';
     protected $fillable = [
-        'name', 'email', 'phone', 'address'
+        'name',
+        'email',
+        'phone',
+        'address',
     ];
 
     public function books(): HasMany

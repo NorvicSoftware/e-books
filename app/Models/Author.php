@@ -14,28 +14,36 @@ class Author extends Model
     use HasFactory;
     protected $table = 'authors';
     protected $fillable = [
-        'nationality', 'birth_date', 'biography', 'website', 'social_network', 'user_id'
+        'nationality',
+        'birth_date',
+        'biography',
+        'website',
+        'social_network',
+        'user_id',
     ];
 
-    public function user (): BelongsTo {
+    public function user(): BelongsTo
+    {
         return $this->belongsTo(User::class);
     }
 
-    public function books(): HasMany {
+    public function books(): HasMany
+    {
         return $this->hasMany(Book::class);
     }
 
-    public function image(): MorphOne {
+    public function image(): MorphOne
+    {
         return $this->morphOne(Image::class, 'imageable');
     }
 
-    public function comments(): MorphMany{
+    public function comments(): MorphMany
+    {
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function scores(): MorphMany {
+    public function scores(): MorphMany
+    {
         return $this->morphMany(Score::class, 'scoreable');
     }
-
-
 }

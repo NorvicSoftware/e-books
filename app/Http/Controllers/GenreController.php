@@ -13,8 +13,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //$genres = Genre::all();
-        $genres = Genre::where('type', '=', 'Alternativa')->orderBy('name', 'asc')->get();
+        $genres = Genre::all();
+        //$genres = Genre::where('type', '=', 'Alternativa')->orderBy('name', 'asc')->get();
         return Inertia::render('Genres/Index', ['genres' => $genres]);
         // return view ('genres/list', compact('genres'));
     }
@@ -37,8 +37,6 @@ class GenreController extends Controller
         $genre->description = $request->description;
         $genre->type = $request->type;
         $genre->save();
-        
-
     }
 
     /**

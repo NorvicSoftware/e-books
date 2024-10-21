@@ -15,8 +15,8 @@ class UserableSeeder extends Seeder
      */
     public function run(): void
     {
-       $users = User::all();
-        foreach($users as $user){
+        $users = User::all();
+        foreach ($users as $user) {
             $user->userables()->create([
                 'numer_star' => rand(1, 5),
                 'userable_id' => 1,

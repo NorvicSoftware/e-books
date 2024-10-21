@@ -15,7 +15,12 @@ class Sale extends Model
 
     protected $table = "sales";
 
-    protected $fillable = ['customer_id', 'promotion_id', 'price', 'sale_date'];
+    protected $fillable = [
+        'customer_id',
+        'promotion_id',
+        'price',
+        'sale_date',
+    ];
 
     public function books(): BelongsToMany
     {
