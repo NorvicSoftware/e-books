@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(CommentSeeder::class);
         // $this->call(UserableSeeder::class);
-        Editorial::factory(100)->create();
+        Editorial::factory(10)->create();
         User::factory(50)->create();
         Author::factory(50)->create();
 
