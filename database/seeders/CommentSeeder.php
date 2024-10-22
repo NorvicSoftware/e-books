@@ -15,12 +15,12 @@ class CommentSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i=0; $i < 5; $i++) { 
+        for ($i = 0; $i < 5; $i++) {
             Comment::create([
-                'comment' => 'Text for comment #'. $i,
+                'comment' => 'Text for comment #' . $i,
                 'user_id' => 1,
                 'commentable_type' => Arr::random(['App\Models\Book', 'App\Models\Author']),
-                'commentable_id' => arr::random([1,2,3,4,5]),
+                'commentable_id' => arr::random([1, 2, 3, 4, 5]),
             ]);
         }
     }
