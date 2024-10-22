@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Genre;
+use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
 
 class GenreController extends Controller
@@ -13,8 +14,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        //$genres = Genre::all();
-        $genres = Genre::where('type', '=', 'Alternativa')->orderBy('name', 'asc')->get();
+        $genres = Genre::all();
+        // $genres = Genre::where('type', '=', 'Alternativa')->orderBy('name', 'asc')->get();
         return Inertia::render('Genres/Index', ['genres' => $genres]);
         // return view ('genres/list', compact('genres'));
     }
@@ -37,8 +38,8 @@ class GenreController extends Controller
         $genre->description = $request->description;
         $genre->type = $request->type;
         $genre->save();
-        
 
+        return Redirect::route('genres.index');
     }
 
     /**
@@ -62,7 +63,13 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $genre = Genre::find($id);
+        $genre->name = $request->name;
+        $genre->type = $request->type;
+        $genre->description = $request->description;
+        $genre->save();
+
+        return Redirect::route('genres.index');
     }
 
     /**
@@ -70,6 +77,8 @@ class GenreController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $genre = Genre::find($id);
+        $genre->delete();
+        return Redirect::route('genres.index');
     }
 }

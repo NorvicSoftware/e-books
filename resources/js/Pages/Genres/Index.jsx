@@ -1,5 +1,7 @@
 import { usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
+import Form from "./Form";
+import Delete from "./delete";
 
 
 export default function Index () {
@@ -15,6 +17,7 @@ export default function Index () {
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
+                            <Form />
                             <table className="table-auto w-full">
                                 <thead>
                                     <tr>
@@ -27,6 +30,9 @@ export default function Index () {
                                         <th className="px-6 py-3 text-left text-sm font-medium text-red-500 uppercase">
                                             Descripción
                                         </th>
+                                        <th className="px-6 py-3 text-left text-sm font-medium text-red-500 uppercase">
+                                            Acción
+                                        </th>
                                     </tr>
                                 </thead>
                                 <tbody>
@@ -35,11 +41,15 @@ export default function Index () {
                                             <td className="px-6 py-4 text-left text-sm">{genre.name}</td>
                                             <td className="px-6 py-4 text-left text-sm">{genre.type}</td>
                                             <td className="px-6 py-4 text-left text-sm">{genre.description}</td>
+                                            <td className="px-6 py-4 text-left text-sm">
+                                                <Form id={genre.id} genre={genre} />
+                                                <Delete id={genre.id} genre={genre} />
+                                            </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                            
+                            <Form />
                         </div>
                     </div>
                 </div>
