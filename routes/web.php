@@ -26,6 +26,9 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(GenreController::class)->group(function () {
         Route::get('/genres', 'index')->name('genres.index');
+        Route::post('/genres', 'store')->name('genres.store');
+        Route::put('/genres/{id}', 'update')->name('genres.update');
+        Route::delete('/genres/{id}', 'destroy')->name('genres.delete');
     });
 });
 
