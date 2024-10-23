@@ -3,13 +3,12 @@ import { usePage } from '@inertiajs/react';
 import { Inertia } from '@inertiajs/inertia'; 
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import DeleteButton from '@/Components/DeleteButton';
-import EditButton from '@/Components/EditButton';
 import Form from './Form';
 
 export default function Index() {
     const {customers} = usePage().props;
     const UserOptions = customers.map(customer => ({
-        value: customer.user.id,
+        value: customer.user_id,
         label: customer.user.name,
     }));
 
@@ -61,7 +60,7 @@ export default function Index() {
                                         <td className="whitespace-nowrap  px-6 py-4">{customer.nit}</td>
                                         <td className="whitespace-nowrap  px-6 py-4">{customer.code}</td>
                                         <td className="whitespace-nowrap  px-6 py-4">
-                                            <EditButton></EditButton>
+                                            <Form id={customer.id} customer={customer} users={UserOptions} />
                                             <DeleteButton onClick={(e) => {
                                                 e.stopPropagation();
                                                 destroyItem(customer.id);

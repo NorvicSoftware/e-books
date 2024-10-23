@@ -34,7 +34,11 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $customer = new Customer();
+        $customer->nit = $request->nit;
+        $customer->code = $request->code;
+        $customer->user_id = $request->user_id;
+        $customer->save();
     }
 
     /**
@@ -58,7 +62,11 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $customer = Customer::find($id);
+        $customer->nit = $request->nit;
+        $customer->code = $request->code;
+        $customer->user_id = $request->user_id;
+        $customer->save();
     }
 
     /**

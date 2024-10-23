@@ -34,6 +34,8 @@ Route::middleware('auth')->group(function () {
 
     Route::controller(CustomerController::class)->group(function () {
         Route::get('/customers', 'index')->name('customers.index');
+        Route::post('/customers', 'store')->name('customers.store');
+        Route::put('/customers/{id}', 'update')->name('customers.update');
         Route::delete('/customers/{id}', 'destroy')->name('customers.delete');
     });
 });
