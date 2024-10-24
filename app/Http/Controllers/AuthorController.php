@@ -31,13 +31,17 @@ class AuthorController extends Controller
      */
     public function store(Request $request)
     {
+        $user = new User();
+        $user->name = $request->name;
+        $user->save();
+
         $author = new Author();
         $author->nationality = $request->nationality;
         $author->birth_date = $request->birth_date;
         $author->biography = $request->biography;
         $author->website = $request->website;
         $author->social_network = $request->social_network;
-        $author->user_id = $request->user_id;
+        $author->user_id = $user->id;
         $author->save();
 
         return Redirect::route('authors.index');

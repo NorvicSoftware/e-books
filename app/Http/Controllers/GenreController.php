@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use \Exception;
 
 class GenreController extends Controller
 {
@@ -33,11 +34,25 @@ class GenreController extends Controller
      */
     public function store(Request $request)
     {
-        $genre = new Genre();
-        $genre->name = $request->name;
-        $genre->description = $request->description;
-        $genre->type = $request->type;
-        $genre->save();
+        $request->validate([
+            'name' => 'required|min:3|max:35|unique:genres,name',
+            'type' => 'required'
+        ]);
+
+        try{
+            $genre = new Genre();
+            $genre->name = $request->name;
+            $genre->description = $request->description;
+            $genre->type = $request->type;
+            $genre->save();
+    
+            return Redirect::route('genres.index')->with(['message' => "Se registro un nuevo genero literario."]);
+        }
+        catch (Exception $e){
+            Redirect::route('genres.index')->with(['message' => "Existe errores en el servidor..."]);
+        }
+
+        
     }
 
     /**

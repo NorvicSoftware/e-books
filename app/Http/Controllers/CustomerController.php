@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use App\Models\User;
+use Illuminate\Support\Facades\Hash;
 
 use App\Models\Customer;
 
@@ -15,7 +17,7 @@ class CustomerController extends Controller
      */
     public function index()
     {
-        $customers = Customer::with(['user:id,name'])->get();
+        $customers = Customer::with(['user:id,name,email'])->get();
         return Inertia::render('Customers/Index', [
             'customers' => $customers,
         ]);
@@ -34,11 +36,19 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $user = new User();
+        $user->name = $request->name;
+        $user->email = $request->email;
+        $user->password = Hash::make($request->password);
+        $user->save();
+
         $customer = new Customer();
         $customer->nit = $request->nit;
         $customer->code = $request->code;
-        $customer->user_id = $request->user_id;
+        $customer->user_id = $user->id;
         $customer->save();
+
+        return Redirect::route('customers.index');
     }
 
     /**
@@ -72,10 +82,12 @@ class CustomerController extends Controller
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(string $id)
+    public function destroy(string $user_id)
     {
-        $customer = Customer::find($id);
-        $customer->delete();
+        $user = User::find($user_id);
+        $user->delete();
+        // $customer = Customer::find($id);
+        // $customer->delete();
         return Redirect::route('customers.index');
     }
 }
