@@ -5,6 +5,7 @@ use Illuminate\Foundation\Application;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Http\Controllers\GenreController;
+use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EditorialController;
 
 Route::get('/', function () {
@@ -30,6 +31,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/genres', 'store')->name('genres.store');
         Route::put('/genres/{id}', 'update')->name('genres.update');
         Route::delete('/genres/{id}', 'destroy')->name('genres.delete');
+    });
+
+
+    Route::controller(CustomerController::class)->group(function () {
+        Route::get('/customers', 'index')->name('customers.index');
+        Route::post('/customers', 'store')->name('customers.store');
+        Route::put('/customers/{id}', 'update')->name('customers.update');
+        Route::delete('/customers/{id}', 'destroy')->name('customers.delete');
     });
 
     Route::controller(EditorialController::class)->group(function () {
