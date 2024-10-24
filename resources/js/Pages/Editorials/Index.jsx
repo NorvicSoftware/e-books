@@ -12,7 +12,7 @@ export default function Index() {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Generos
+                    Editoriales
                 </h2>
             }
         >
