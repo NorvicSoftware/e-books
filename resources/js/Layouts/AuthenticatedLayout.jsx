@@ -41,18 +41,34 @@ export default function Authenticated({ header, children }) {
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-
                                     href={route('customers.index')}
                                     active={route().current('customers.index')}
                                 >
                                     Customers
-                            </NavLink>
-<div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
                                     href={route("editorials.index")}
                                     active={route().current("editorials.index")}
                                 >
                                     Editoriales
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route("editorials.index")}
+                                    active={route().current("users.index")}
+                                >
+                                    usuarios
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route("editorials.index")}
+                                    active={route().current("authors.index")}
+                                >
+                                    Autores
                                 </NavLink>
                             </div>
                         </div>

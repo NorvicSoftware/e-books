@@ -19,10 +19,10 @@ return new class extends Migration
             $table->text('biography')->nullable();
             $table->string('website', 75)->nullable();
             $table->string('social_network', 75)->nullable();
-            
+
             $table->unsignedBigInteger('user_id');
             $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
-            
+
             $table->timestamps();
         });
     }
