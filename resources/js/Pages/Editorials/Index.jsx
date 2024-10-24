@@ -1,4 +1,4 @@
-import { usePage } from "@inertiajs/react";
+orialesimport { usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Form from "./Form";
 import Delete from "./delete";
