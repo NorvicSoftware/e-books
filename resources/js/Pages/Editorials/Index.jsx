@@ -1,4 +1,4 @@
-import { usePage } from "@inertiajs/react";
+orialesimport { usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Form from "./Form";
 import Delete from "./delete";
@@ -12,7 +12,7 @@ export default function Index() {
         <AuthenticatedLayout
             header={
                 <h2 className="text-xl font-semibold leading-tight text-gray-800">
-                    Generos
+                    Editoriales
                 </h2>
             }
         >
