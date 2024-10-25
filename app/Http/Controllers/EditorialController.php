@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Editorial;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\Validator;
 
 class EditorialController extends Controller
 {
@@ -16,7 +17,6 @@ class EditorialController extends Controller
     {
         $editorials = Editorial::all();
         return Inertia::render('Editorials/Index', ['editorials' => $editorials]);
-        // return view ('editorials/list', compact('editorials'));
     }
 
     /**
@@ -32,20 +32,20 @@ class EditorialController extends Controller
      */
     public function store(Request $request)
     {
-        $editorial = new Editorial();
-        $editorial->name = $request->name;
-        $editorial->email = $request->email;
-        $editorial->phone = $request->phone;
-        $editorial->address = $request->address;
-        $editorial->save();
-    }
+        // Validación de los datos
+        $validated = Validator::make($request->all(), [
+            'name' => 'required|string|min:2|max:35|unique:editorials,name',
+            'email' => 'required|max:75|email|unique:editorials,email',
+            'phone' => 'nullable|string|min:8|max:20',
+            'address' => 'nullable|string',
+        ])->validate();
 
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-        //
+        try {
+            Editorial::create($validated);
+            return Redirect::route('editorials.index')->with('success', 'Editorial creada exitosamente.');
+        } catch (\Exception $e) {
+            return Redirect::route('editorials.create')->with('error', 'Error al crear la editorial: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -53,7 +53,8 @@ class EditorialController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $editorial = Editorial::findOrFail($id);
+        return Inertia::render('Editorials/Edit', ['editorial' => $editorial]);
     }
 
     /**
@@ -61,14 +62,21 @@ class EditorialController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $editorial = Editorial::find($id);
-        $editorial->name = $request->name;
-        $editorial->email = $request->email;
-        $editorial->phone = $request->phone;
-        $editorial->address = $request->address;
-        $editorial->save();
+        $editorial = Editorial::findOrFail($id);
 
-        return Redirect::route('editorials.index');
+        $validated = Validator::make($request->all(), [
+            'name' => "required|string|min:2|max:35|unique:editorials,name,$id",
+            'email' => "required|max:75|email|unique:editorials,email, $id",
+            'phone' => 'nullable|string|min:8|max:20',
+            'address' => 'nullable|string',
+        ])->validate();
+
+        try {
+            $editorial->update($validated);
+            return Redirect::route('editorials.index')->with('success', 'Editorial actualizada exitosamente.');
+        } catch (\Exception $e) {
+            return Redirect::route('editorials.edit', $id)->with('error', 'Error al actualizar la editorial: ' . $e->getMessage());
+        }
     }
 
     /**
@@ -76,8 +84,12 @@ class EditorialController extends Controller
      */
     public function destroy(string $id)
     {
-        $editorial = Editorial::find($id);
-        $editorial->delete();
-        return Redirect::route('editorials.index');
+        try {
+            $editorial = Editorial::findOrFail($id);
+            $editorial->delete();
+            return Redirect::route('editorials.index')->with('success', 'Editorial eliminada exitosamente.');
+        } catch (\Exception $e) {
+            return Redirect::route('editorials.index')->with('error', 'Error al eliminar la editorial: ' . $e->getMessage());
+        }
     }
 }
