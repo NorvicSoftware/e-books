@@ -1,15 +1,16 @@
 import Modal from "@/Components/Modal";
-import { useState } from "react";
 import { useForm } from "@inertiajs/react";
+import { useState } from "react";
 
 export default function Form({ id = 0, editorial = {} }) {
-    const [showModal, setShowModal] = useState(false);
     const { data, setData, errors, post, put } = useForm({
         name: editorial.name || "",
         email: editorial.email || "",
         phone: editorial.phone || "",
         address: editorial.address || "",
     });
+
+    const [showModal, setShowModal] = useState(false);
 
     const openModal = () => {
         setShowModal(true);
@@ -72,6 +73,13 @@ export default function Form({ id = 0, editorial = {} }) {
                                 type="text"
                                 placeholder="Nombre"
                                 value={data.name}
+                                minlength="2"
+                                maxlength="35"
+                                autofocus
+                                autocomplete:off
+                                pattern="^(?=.{2,35}$)(?:(?:[A-Z][a-zA-Z]{1,34})(?:\s+[A-Z][a-zA-Z]{1,34})*)?$"
+                                title="Cada palabra en el nombre debe iniciar con mayúsculas"
+                                required
                                 onChange={(e) =>
                                     setData("name", e.target.value)
                                 }
@@ -92,6 +100,9 @@ export default function Form({ id = 0, editorial = {} }) {
                                 type="email"
                                 placeholder="Correo electrónico"
                                 value={data.email}
+                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}"
+                                title="Por favor, ingresa un correo electrónico válido"
+                                required
                                 onChange={(e) =>
                                     setData("email", e.target.value)
                                 }
@@ -112,6 +123,8 @@ export default function Form({ id = 0, editorial = {} }) {
                                 type="text"
                                 placeholder="Celular"
                                 value={data.phone}
+                                pattern="^\+\d{3}-\d{8}|^\d{1-20}$"
+                                title="El celular debe estar en el formato +XXX-XXXXXXXX, donde X es un número."
                                 onChange={(e) =>
                                     setData("phone", e.target.value)
                                 }
@@ -132,6 +145,8 @@ export default function Form({ id = 0, editorial = {} }) {
                                 type="text"
                                 placeholder="Dirección"
                                 value={data.address}
+                                pattern="^(.{10,}|)$"
+                                title="La dirección puede estar vacía o contener al menos 10 caracteres."
                                 onChange={(e) =>
                                     setData("address", e.target.value)
                                 }
