@@ -42,6 +42,9 @@ export default function Index() {
                                     Name
                                 </th>
                                 <th scope="col" className=" px-6 py-4">
+                                    Email
+                                </th>
+                                <th scope="col" className=" px-6 py-4">
                                     NIT
                                 </th>
                                 <th scope="col" className=" px-6 py-4">
@@ -57,13 +60,14 @@ export default function Index() {
                                     <tr key={customer.id} className="border-b border-neutral-200 dark:border-white/10">
                                         <td className="whitespace-nowrap  px-6 py-4 font-medium">{customer.id}</td>
                                         <td className="whitespace-nowrap  px-6 py-4">{customer.user.name}</td>
+                                        <td className="whitespace-nowrap  px-6 py-4">{customer.user.email}</td>
                                         <td className="whitespace-nowrap  px-6 py-4">{customer.nit}</td>
                                         <td className="whitespace-nowrap  px-6 py-4">{customer.code}</td>
                                         <td className="whitespace-nowrap  px-6 py-4">
                                             <Form id={customer.id} customer={customer} users={UserOptions} />
                                             <DeleteButton onClick={(e) => {
                                                 e.stopPropagation();
-                                                destroyItem(customer.id);
+                                                destroyItem(customer.user_id);
                                             }}></DeleteButton>
                                         </td>
                                     </tr>

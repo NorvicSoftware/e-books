@@ -9,7 +9,7 @@ import EditButton from '@/Components/EditButton';
 
 export default function Form({ id = 0, customer = {}, users = {}}){
     const [showModal, setShowModal] = useState(false); 
-    const { data, setData, errors, post, put } = useForm({nit: '', code: '', user_id: 0, });
+    const { data, setData, errors, post, put } = useForm({ name: 'Maria Carmen Soto', email:'mariacarmen1@gmail.com', password:'maria123',  nit: '', code: '', user_id: 0, });
 
     const openModal = () => {
         setShowModal(true);

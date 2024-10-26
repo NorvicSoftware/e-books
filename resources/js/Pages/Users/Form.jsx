@@ -2,6 +2,7 @@ import Modal from "@/Components/Modal";
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
+
 export default function Form({ id = 0, user = {} }) {
     const [showModal, setShowModal] = useState(false);
     const { data, setData, errors, post, put } = useForm({

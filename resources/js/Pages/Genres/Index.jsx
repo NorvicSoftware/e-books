@@ -3,7 +3,6 @@ import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Form from "./Form";
 import Delete from "./delete";
 
-
 export default function Index () {
     const {genres} = usePage().props;
 
