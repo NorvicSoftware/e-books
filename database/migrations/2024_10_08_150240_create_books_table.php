@@ -16,12 +16,13 @@ return new class extends Migration
 
             $table->string('title', 75)->unique();
             $table->string('subtitle', 250);
-            $table->double('verion', 5, 1)->defaul(1.0);
+            $table->decimal('version', 5, 1)->defaul(1.0);
             $table->date('publish_date');
             $table->decimal('price_sale', 10, 2)->defaul(0.00);
             $table->enum('lenguage', ['Español', 'English', 'Portugues'])->default('Español');
             $table->integer('page_number')->default(0);
             $table->string('ISBN', 15)->unique();
+            $table->text('detail')->nullable();
 
             $table->unsignedBigInteger('author_id');
             $table->unsignedBigInteger('genre_id')->nullable();
@@ -29,8 +30,8 @@ return new class extends Migration
 
             $table->foreign('author_id')->references('id')->on('authors')->onDelete('cascade');
             $table->foreign('genre_id')->references('id')->on('genres')->onDelete('set null');
-            $table->foreign('editorial_id')->references('id')->on('editororials')->onDelete('set null');
-            
+            $table->foreign('editorial_id')->references('id')->on('editorials')->onDelete('set null');
+
             $table->timestamps();
         });
     }

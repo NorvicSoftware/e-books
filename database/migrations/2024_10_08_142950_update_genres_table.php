@@ -11,13 +11,8 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('genres', function (Blueprint $table) {
-            $table->id();
-
-            $table->string('name', 35)->unique();
-            $table->text('description')->nullable();
-
-            $table->timestamps();
+        Schema::table('genres', function (Blueprint $table) {
+            // $table->string('type', length: 35)->after('name')->default('Alternativa');
         });
     }
 
@@ -26,6 +21,8 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('genres');
+        Schema::table('genres', function (Blueprint $table) {
+            $table->dropColumn('type');
+        });
     }
 };
