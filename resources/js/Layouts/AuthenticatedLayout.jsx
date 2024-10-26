@@ -41,8 +41,8 @@ export default function Authenticated({ header, children }) {
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route('customers.index')}
-                                    active={route().current('customers.index')}
+                                    href={route("customers.index")}
+                                    active={route().current("customers.index")}
                                 >
                                     Customers
                                 </NavLink>
@@ -57,7 +57,7 @@ export default function Authenticated({ header, children }) {
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("editorials.index")}
+                                    href={route("users.index")}
                                     active={route().current("users.index")}
                                 >
                                     usuarios
@@ -65,7 +65,7 @@ export default function Authenticated({ header, children }) {
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
                                 <NavLink
-                                    href={route("editorials.index")}
+                                    href={route("authors.index")}
                                     active={route().current("authors.index")}
                                 >
                                     Autores

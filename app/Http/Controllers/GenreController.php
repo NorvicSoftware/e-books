@@ -36,14 +36,13 @@ class GenreController extends Controller
     {
         $request->validate([
             'name' => 'required|min:3|max:35|unique:genres,name',
-            'type' => 'required'
         ]);
 
         try{
             $genre = new Genre();
             $genre->name = $request->name;
             $genre->description = $request->description;
-            $genre->type = $request->type;
+            // $genre->type = $request->type;
             $genre->save();
     
             return Redirect::route('genres.index')->with(['message' => "Se registro un nuevo genero literario."]);
@@ -76,9 +75,13 @@ class GenreController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'name' => 'required|min:3|max:35',
+        ]);
+
         $genre = Genre::find($id);
         $genre->name = $request->name;
-        $genre->type = $request->type;
+        // $genre->type = $request->type;
         $genre->description = $request->description;
         $genre->save();
 

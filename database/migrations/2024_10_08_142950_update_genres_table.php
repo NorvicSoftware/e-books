@@ -12,7 +12,7 @@ return new class extends Migration
     public function up(): void
     {
         Schema::table('genres', function (Blueprint $table) {
-            $table->string('type', length: 35)->after('name')->default('Alternativa');
+            // $table->string('type', length: 35)->after('name')->default('Alternativa');
         });
     }
 
