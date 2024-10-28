@@ -2,6 +2,8 @@ import Modal from "@/Components/Modal";
 import { useState } from "react";
 import { useForm } from "@inertiajs/react";
 
+import CreateButton from "@/Components/CreateButton";
+
 export default function Form({ id = 0, author = {} }) {
     const [showModal, setShowModal] = useState(false);
     const { data, setData, errors, post, put } = useForm({
@@ -49,9 +51,16 @@ export default function Form({ id = 0, author = {} }) {
 
     return (
         <>
-            <button onClick={openModal}>
+            {/* <button onClick={openModal}>
                 {id > 0 ? "Editar" : "Crear Autor"}
-            </button>
+            </button> */}
+            { id > 0 ? (
+                <CreateButton type="button" onClick={openModal}>Editar Autor</CreateButton>
+            )
+            :(
+                <CreateButton type="button" onClick={openModal}>Crear Autor</CreateButton>
+            )}
+            
             <Modal show={showModal}>
                 <h2>CREAR NUEVO AUTOR</h2>
                 <form>
