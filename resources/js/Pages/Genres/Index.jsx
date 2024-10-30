@@ -2,11 +2,13 @@ import { usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Form from "./Form";
 import Delete from "./delete";
+// import { languages } from "vendor/filp/whoops/src/Whoops/Resources/js/prism";
 
 export default function Index() {
     const { genres } = usePage().props;
+    const lang1 = usePage().props.auth.lang;
 
-    console.log(genres);
+    console.log(lang1.lang);
 
 
     return (
@@ -16,7 +18,7 @@ export default function Index() {
                 <div className="mx-auto max-w-7xl sm:px-6 lg:px-8">
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
-                            <Form />
+                            <Form lang1={lang1.lang}/>
                             <table className="table-auto w-full mt-2">
                                 <thead className="bg-gray-200">
                                     <tr>
@@ -38,7 +40,7 @@ export default function Index() {
                                             <td className="px-6 py-4 text-left text-sm">{genre.description}</td>
                                             <td className="px-6 py-4 text-left text-sm ">
                                                 <div className="flex justify-end space-x-2">
-                                                    <Form id={genre.id} genre={genre} />
+                                                    <Form lang1 ={lang1.lang} id={genre.id} genre={genre} />
                                                     <Delete id={genre.id} genre={genre} />
                                                 </div>
                                             </td>

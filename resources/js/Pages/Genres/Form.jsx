@@ -4,10 +4,15 @@ import { useForm } from "@inertiajs/react";
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import CreateButton from "@/Components/CreateButton";
 import CancelButton from "@/Components/CancelButton";
+import es from "@/lang/es";
+import en from "@/lang/en";
 
-export default function Form({ id = 0, genre = {} }) {
+export default function Form({ lang1='en', id = 0, genre = {} }) {
     const [showModal, setShowModal] = useState(false);
     const { data, setData, errors, post, put } = useForm({ name: '', type: '', description: '' });
+
+
+    // console.log('lang1:', lang1);
 
     // function openModal() {
 
@@ -56,7 +61,7 @@ export default function Form({ id = 0, genre = {} }) {
             {id > 0 ? (
                 <button className="text-2xl text-blue-500 hover:text-blue-600" onClick={openModal}><HiMiniPencilSquare /></button>
             ) : (
-                <CreateButton type="button" onClick={openModal}>Crear Genero</CreateButton>
+                <CreateButton type="button" onClick={openModal}>{lang1 === 'es' ? es.button.new_genre : en.button.new_genre }</CreateButton>
                 // <button className="bg-blue-500 hover:bg-blue-600 py-2 px-4 text-white rounded-md font-semibold" onClick={openModal}>Crear Genero</button>
             )}
             <Modal show={showModal}>
@@ -86,8 +91,14 @@ export default function Form({ id = 0, genre = {} }) {
                         <label>Descripción</label>
                         <input className=" block w-full" name="description" type="text" placeholder="Descripcion" value={data.description} onChange={(e) => setData('description', e.target.value)} />
                         <div className="flex justify-end space-x-2 mt-2">
-                            <CreateButton type="submit" onClick={submit}>{ id > 0 ? "Actualizar genero": "Guardar genero"}</CreateButton>
-                            <CancelButton onClick={closeModal}>Cerrar</CancelButton>
+                            <CreateButton type="submit" onClick={submit}>{ id > 0 ? (
+                                lang1 === 'es' ? es.button.edit_genre : en.button.edit_genre
+                            )
+                            : (
+                                lang1 === 'es' ? es.button.save_genre : en.button.save_genre
+                            )
+                        }</CreateButton>
+                            <CancelButton onClick={closeModal}>{lang1 === 'es' ? es.button.cancel : en.button.cancel}</CancelButton>
                         </div>
 
                     </form>

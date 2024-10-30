@@ -7,6 +7,9 @@ import { useState } from "react";
 
 export default function Authenticated({ header, children }) {
     const user = usePage().props.auth.user;
+    // const lang = usePage().props.auth.lang;
+
+    // console.log('setting lang:', lang.lang);
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
