@@ -2,6 +2,12 @@ import Modal from "@/Components/Modal";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 
+import IconButton from "@/Components/IconButton";
+import newIcon from "/public/new.png";
+import saveIcon from "/public/save.png";
+import editIcon from "/public/edit.png";
+import closeIcon from "/public/close.png";
+
 export default function Form({ id = 0, editorial = {} }) {
     const { data, setData, errors, post, put } = useForm({
         name: editorial.name || "",
@@ -52,12 +58,21 @@ export default function Form({ id = 0, editorial = {} }) {
 
     return (
         <>
-            <button
+            {/* <button
                 className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                 onClick={openModal}
             >
                 {id > 0 ? "Editar" : "Crear"}
-            </button>
+            </button> */}
+            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                <IconButton
+                    icon={id > 0 ? editIcon : newIcon}
+                    label=""
+                    onClick={openModal}
+                    className="bg-white-600 hover:bg-gray-200"
+                    disabled={false}
+                />
+            </div>
             <Modal show={showModal} onClose={closeModal}>
                 <div className="p-6 bg-white rounded-lg shadow-lg">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-800">
@@ -159,18 +174,34 @@ export default function Form({ id = 0, editorial = {} }) {
                             )}
                         </div>
                         <div className="flex items-center justify-between">
-                            <button
+                            {/* <button
                                 type="submit"
                                 className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
                                 {id > 0 ? "Actualizar" : "Crear"}
-                            </button>
-                            <button
+                            </button> */}
+                            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                                <IconButton
+                                    icon={id > 0 ? saveIcon : saveIcon}
+                                    label=""
+                                    onClick={openModal}
+                                    className="bg-white-600 hover:bg-gray-200"
+                                    disabled={false}
+                                />
+                            </div>
+                            {/* <button
                                 onClick={closeModal}
                                 className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
                             >
                                 Cerrar
-                            </button>
+                            </button> */}
+                            <IconButton
+                                icon={closeIcon}
+                                label=""
+                                onClick={closeModal}
+                                className="bg-white-600 hover:bg-gray-200"
+                                disabled={false}
+                            />
                         </div>
                     </form>
                 </div>
