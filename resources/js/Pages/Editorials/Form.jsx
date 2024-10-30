@@ -64,7 +64,7 @@ export default function Form({ id = 0, editorial = {} }) {
             >
                 {id > 0 ? "Editar" : "Crear"}
             </button> */}
-            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+            <div className="p-1 bg-white-800 rounded-lg shadow-lg">
                 <IconButton
                     icon={id > 0 ? editIcon : newIcon}
                     label=""
@@ -98,7 +98,7 @@ export default function Form({ id = 0, editorial = {} }) {
                                 onChange={(e) =>
                                     setData("name", e.target.value)
                                 }
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-transparent"
                             />
                             {errors.name && (
                                 <p className="text-red-500 text-xs italic">
@@ -165,7 +165,7 @@ export default function Form({ id = 0, editorial = {} }) {
                                 onChange={(e) =>
                                     setData("address", e.target.value)
                                 }
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
                             />
                             {errors.address && (
                                 <p className="text-red-500 text-xs italic">
@@ -184,7 +184,7 @@ export default function Form({ id = 0, editorial = {} }) {
                                 <IconButton
                                     icon={id > 0 ? saveIcon : saveIcon}
                                     label=""
-                                    onClick={openModal}
+                                    onClick={submit}
                                     className="bg-white-600 hover:bg-gray-200"
                                     disabled={false}
                                 />
