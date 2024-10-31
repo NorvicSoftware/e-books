@@ -199,7 +199,7 @@ export default function Form({ id = 0, editorial = {} }) {
                                 icon={closeIcon}
                                 label=""
                                 onClick={closeModal}
-                                className="bg-white-600 hover:bg-gray-200"
+                                // className="bg-white-600 hover:bg-gray-200"
                                 disabled={false}
                             />
                         </div>
