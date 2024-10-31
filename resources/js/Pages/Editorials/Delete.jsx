@@ -35,12 +35,6 @@ export default function Delete({ id, editorial }) {
 
     return (
         <>
-            {/* <button
-                className="bg-red-600 hover:bg-red-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={openModal}
-            >
-                Borrar
-            </button> */}
             <div className="p-1 bg-white-600 rounded-lg shadow-lg">
                 <IconButton
                     icon={eliminarIcon}
@@ -67,35 +61,25 @@ export default function Delete({ id, editorial }) {
                         </p>
                     )}
                     <div className="flex items-center justify-between">
-                        {/* <button
-                            type="submit"
-                            className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            disabled={processing}
-                            onClick={submit}
-                        >
-                            {processing ? "Cargando..." : "Borrar"}
-                        </button>
-                        <button
-                            onClick={closeModal}
-                            className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                        >
-                            Cerrar
-                        </button> */}
-
-                        <IconButton
-                            icon={eliminarIcon}
-                            label=""
-                            onClick={submit}
-                            className="hover:bg-gray-200"
-                            disabled={false}
-                        />
-                        <IconButton
-                            icon={closeIcon}
-                            label=""
-                            onClick={closeModal}
-                            className="bg-white-600 hover:bg-gray-200"
-                            disabled={false}
-                        />
+                        <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                            <IconButton
+                                icon={eliminarIcon}
+                                label=""
+                                onClick={submit}
+                                className="hover:bg-gray-200"
+                                disabled={false}
+                            />
+                        </div>
+                        <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                            <IconButton
+                                icon={closeIcon}
+                                label=""
+                                onClick={closeModal}
+                                className="hover:bg-gray-200"
+                                disabled={false}
+                                href={closeModal}
+                            />
+                        </div>
                     </div>
                 </div>
             </Modal>

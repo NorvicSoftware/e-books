@@ -58,18 +58,12 @@ export default function Form({ id = 0, editorial = {} }) {
 
     return (
         <>
-            {/* <button
-                className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={openModal}
-            >
-                {id > 0 ? "Editar" : "Crear"}
-            </button> */}
-            <div className="p-1 bg-white-800 rounded-lg shadow-lg">
+            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
                 <IconButton
                     icon={id > 0 ? editIcon : newIcon}
                     label=""
                     onClick={openModal}
-                    className="bg-white-600 hover:bg-gray-200"
+                    className="hover:bg-gray-200"
                     disabled={false}
                 />
             </div>
@@ -174,34 +168,26 @@ export default function Form({ id = 0, editorial = {} }) {
                             )}
                         </div>
                         <div className="flex items-center justify-between">
-                            {/* <button
-                                type="submit"
-                                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            >
-                                {id > 0 ? "Actualizar" : "Crear"}
-                            </button> */}
                             <div className="p-1 bg-white-600 rounded-lg shadow-lg">
                                 <IconButton
                                     icon={id > 0 ? saveIcon : saveIcon}
                                     label=""
                                     onClick={submit}
-                                    className="bg-white-600 hover:bg-gray-200"
+                                    className="hover:bg-gray-200"
                                     disabled={false}
+                                    //href={submit}
                                 />
                             </div>
-                            {/* <button
-                                onClick={closeModal}
-                                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            >
-                                Cerrar
-                            </button> */}
-                            <IconButton
-                                icon={closeIcon}
-                                label=""
-                                onClick={closeModal}
-                                // className="bg-white-600 hover:bg-gray-200"
-                                disabled={false}
-                            />
+                            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                                <IconButton
+                                    icon={closeIcon}
+                                    label=""
+                                    onClick={closeModal}
+                                    className="hover:bg-gray-200"
+                                    disabled={false}
+                                    //href={closeModal}
+                                />
+                            </div>
                         </div>
                     </form>
                 </div>
