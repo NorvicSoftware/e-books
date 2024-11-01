@@ -32,7 +32,7 @@ const IconButton = ({ icon, label, onClick, className, disabled, href }) => {
             aria-disabled={disabled} // Accesibilidad extra para enlaces
             role={href ? "button" : undefined} // Define el rol si es enlace
         >
-            <img src={icon} alt={label} className="w-4 h-4 mr-2" />
+            <img src={icon} alt={label} className="w-4 h-4 mr-0" />
             {label}
         </Component>
     );
