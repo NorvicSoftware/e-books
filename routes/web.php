@@ -9,6 +9,7 @@ use App\Http\Controllers\GenreController;
 use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\BookController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -62,6 +63,14 @@ Route::middleware('auth')->group(function () {
         Route::post('/authors', 'store')->name('authors.store');
         Route::put('/authors/{id}', 'update')->name('authors.update');
         Route::delete('/authors/{id}', 'destroy')->name('authors.delete');
+    });
+
+    Route::controller(BookController::class)->group(function () {
+        Route::get('/books', 'index')->name('books.index');
+        Route::get('books/create', 'create')->name('books.create');
+        Route::post('/books', 'store')->name('books.store');
+        // Route::put('/books/{id}', 'update')->name('books.update');
+        // Route::delete('/books/{id}', 'destroy')->name('books.delete');
     });
 });
 

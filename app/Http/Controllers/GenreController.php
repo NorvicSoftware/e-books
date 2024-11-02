@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\Genre;
 use Illuminate\Support\Facades\Redirect;
 use Inertia\Inertia;
+use App\Models\Setting;
 use \Exception;
 
 class GenreController extends Controller
@@ -15,7 +16,8 @@ class GenreController extends Controller
      */
     public function index()
     {
-        $genres = Genre::all();
+        // $lang1 = Setting::find(1);
+        $genres = Genre::orderBy('name', 'ASC')->get();
         //$genres = Genre::where('type', '=', 'Alternativa')->orderBy('name', 'asc')->get();
         return Inertia::render('Genres/Index', ['genres' => $genres]);
         // return view ('genres/list', compact('genres'));
@@ -45,10 +47,10 @@ class GenreController extends Controller
             // $genre->type = $request->type;
             $genre->save();
     
-            return Redirect::route('genres.index')->with(['message' => "Se registro un nuevo genero literario."]);
+            return Redirect::route('genres.index')->with(['message' => __('A new literary genre was registered correctly')]);
         }
         catch (Exception $e){
-            Redirect::route('genres.index')->with(['message' => "Existe errores en el servidor..."]);
+            Redirect::route('genres.index')->with(['message' => __('Error in server')]);
         }
 
         

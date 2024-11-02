@@ -7,6 +7,9 @@ import { useState } from "react";
 
 export default function Authenticated({ header, children }) {
     const user = usePage().props.auth.user;
+    // const lang = usePage().props.auth.lang;
+
+    // console.log('setting lang:', lang.lang);
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -53,6 +56,14 @@ export default function Authenticated({ header, children }) {
                                     active={route().current("editorials.index")}
                                 >
                                     Editoriales
+                                </NavLink>
+                            </div>
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route("books.index")}
+                                    active={route().current("books.index")}
+                                >
+                                    Libros
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
