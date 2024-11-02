@@ -2,6 +2,12 @@ import Modal from "@/Components/Modal";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 
+import IconButton from "@/Components/IconButton";
+import newIcon from "/public/new.png";
+import saveIcon from "/public/save.png";
+import editIcon from "/public/edit.png";
+import closeIcon from "/public/close.png";
+
 export default function Form({ id = 0, editorial = {} }) {
     const { data, setData, errors, post, put } = useForm({
         name: editorial.name || "",
@@ -52,12 +58,15 @@ export default function Form({ id = 0, editorial = {} }) {
 
     return (
         <>
-            <button
-                className="bg-blue-600 hover:bg-blue-800 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                onClick={openModal}
-            >
-                {id > 0 ? "Editar" : "Crear"}
-            </button>
+            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                <IconButton
+                    icon={id > 0 ? editIcon : newIcon}
+                    label=""
+                    onClick={openModal}
+                    className="hover:bg-gray-200"
+                    disabled={false}
+                />
+            </div>
             <Modal show={showModal} onClose={closeModal}>
                 <div className="p-6 bg-white rounded-lg shadow-lg">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-800">
@@ -83,7 +92,7 @@ export default function Form({ id = 0, editorial = {} }) {
                                 onChange={(e) =>
                                     setData("name", e.target.value)
                                 }
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-800 focus:border-transparent"
                             />
                             {errors.name && (
                                 <p className="text-red-500 text-xs italic">
@@ -150,7 +159,7 @@ export default function Form({ id = 0, editorial = {} }) {
                                 onChange={(e) =>
                                     setData("address", e.target.value)
                                 }
-                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-blue-600 focus:border-transparent"
+                                className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:ring-2 focus:ring-red-600 focus:border-transparent"
                             />
                             {errors.address && (
                                 <p className="text-red-500 text-xs italic">
@@ -159,18 +168,26 @@ export default function Form({ id = 0, editorial = {} }) {
                             )}
                         </div>
                         <div className="flex items-center justify-between">
-                            <button
-                                type="submit"
-                                className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            >
-                                {id > 0 ? "Actualizar" : "Crear"}
-                            </button>
-                            <button
-                                onClick={closeModal}
-                                className="bg-gray-500 hover:bg-gray-700 text-white font-bold py-2 px-4 rounded focus:outline-none focus:shadow-outline"
-                            >
-                                Cerrar
-                            </button>
+                            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                                <IconButton
+                                    icon={id > 0 ? saveIcon : saveIcon}
+                                    label=""
+                                    onClick={submit}
+                                    className="hover:bg-gray-200"
+                                    disabled={false}
+                                    //href={submit}
+                                />
+                            </div>
+                            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                                <IconButton
+                                    icon={closeIcon}
+                                    label=""
+                                    onClick={closeModal}
+                                    className="hover:bg-gray-200"
+                                    disabled={false}
+                                    //href={closeModal}
+                                />
+                            </div>
                         </div>
                     </form>
                 </div>
