@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('version', 5, 1)->defaul(1.0);
             $table->date('publish_date');
             $table->decimal('price_sale', 10, 2)->defaul(0.00);
-            $table->enum('lenguage', ['Español', 'English', 'Portugues'])->default('Español');
+            $table->enum('language', ['Español', 'English', 'Portugues'])->default('Español');
             $table->integer('page_number')->default(0);
             $table->string('ISBN', 15)->unique();
             $table->text('detail')->nullable();
