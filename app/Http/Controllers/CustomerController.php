@@ -36,10 +36,18 @@ class CustomerController extends Controller
      */
     public function store(Request $request)
     {
+        $request->validate([
+            'user.name' => 'required|min:5|max:50',
+            'user.email' => 'required|min:5|max:70',
+            'user.password' => 'required|min:8',
+            'nit' => 'required|numeric',
+            'code' => 'required',
+        ]);
+
         $user = new User();
-        $user->name = $request->name;
-        $user->email = $request->email;
-        $user->password = Hash::make($request->password);
+        $user->name = $request->user['name'];
+        $user->email = $request->user['email'];
+        $user->password = Hash::make($request->user['password']);
         $user->save();
 
         $customer = new Customer();
@@ -72,6 +80,10 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
+        $request->validate([
+            'nit' => 'required|numeric',
+            'code' => 'required',
+        ]);
         $customer = Customer::find($id);
         $customer->nit = $request->nit;
         $customer->code = $request->code;
