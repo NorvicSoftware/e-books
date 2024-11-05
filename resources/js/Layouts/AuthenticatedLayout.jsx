@@ -47,7 +47,7 @@ export default function Authenticated({ header, children }) {
                                     href={route("customers.index")}
                                     active={route().current("customers.index")}
                                 >
-                                    Customers
+                                    Clientes
                                 </NavLink>
                             </div>
                             <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
