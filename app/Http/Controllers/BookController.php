@@ -70,8 +70,10 @@ class BookController extends Controller
         $book->author_id = Auth::user()->id;
         $book->genre_id = $request->genre_id;
         $book->editorial_id = $request->editorial_id;
+        $book->detail = $request->detail;
         $book->save();
 
+        return Redirect::route('books.index');
 
     }
 
