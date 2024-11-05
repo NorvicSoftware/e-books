@@ -11,15 +11,22 @@ use App\Models\Genre;
 use App\Models\Editorial;
 use App\Repositories\GenreRepository;
 use App\Repositories\EditorialRepository;
+use App\Mail\NewBookMail;
+use Illuminate\Support\Facades\Mail;
+use App\Models\Customer;
+use App\Repositories\CustomerRepository;
+use Illuminate\Support\Facades\DB;
 
 class BookController extends Controller
 {
     protected $genres;
     protected $editorials;
+    protected $customers;
 
-    public function __construct(GenreRepository $genres, EditorialRepository $editorials){
+    public function __construct(GenreRepository $genres, EditorialRepository $editorials, CustomerRepository $customers){
         $this->genres = $genres;
         $this->editorials = $editorials;
+        $this->customers = $customers;
     }
     /**
      * Display a listing of the resource.
@@ -58,22 +65,42 @@ class BookController extends Controller
             'genre_id' => ['required','numeric'],
             'editorial_id' => ['required','numeric'],
         ]);
-        $book = new Book();
-        $book->title = $request->title;
-        $book->subtitle = $request->subtitle;
-        $book->price_sale = $request->price_sale;
-        $book->publish_date = $request->publish_date;
-        $book->version = $request->version;
-        $book->page_number = $request->page_number;
-        $book->ISBN = $request->isbn;
-        $book->language = $request->language;
-        $book->author_id = Auth::user()->id;
-        $book->genre_id = $request->genre_id;
-        $book->editorial_id = $request->editorial_id;
-        $book->detail = $request->detail;
-        $book->save();
 
-        return Redirect::route('books.index');
+        try {
+
+            DB::beginTransaction();
+
+            $book = new Book();
+            $book->title = $request->title;
+            $book->subtitle = $request->subtitle;
+            $book->price_sale = $request->price_sale;
+            $book->publish_date = $request->publish_date;
+            $book->version = $request->version;
+            $book->page_number = $request->page_number;
+            $book->ISBN = $request->isbn;
+            $book->language = $request->language;
+            $book->author_id = Auth::user()->id;
+            $book->genre_id = $request->genre_id;
+            $book->editorial_id = $request->editorial_id;
+            $book->detail = $request->detail;
+            $book->save();
+    
+            $customers = $this->customers->getAllCustomer();
+            foreach($customers as $customer){
+                Mail::to($customer->user->email)->send(new NewBookMail($book, $customer));
+            }
+
+            DB::commit();
+    
+            return Redirect::route('books.index');
+        }
+        catch(\Exception $e){
+            DB::rollback();
+            return redirect()->back()->withInput()->withErrors(['error' => 'Error al crear el libro']);
+        }
+
+
+        
 
     }
 

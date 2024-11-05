@@ -1,0 +1,58 @@
+<?php
+
+namespace App\Mail;
+
+use Illuminate\Bus\Queueable;
+use Illuminate\Contracts\Queue\ShouldQueue;
+use Illuminate\Mail\Mailable;
+use Illuminate\Mail\Mailables\Content;
+use Illuminate\Mail\Mailables\Envelope;
+use Illuminate\Queue\SerializesModels;
+use Illuminate\Mail\Mailables\Address;
+
+class NewBookMail extends Mailable
+{
+    use Queueable, SerializesModels;
+    public $book;
+    public $customer;
+
+    /**
+     * Create a new message instance.
+     */
+    public function __construct($book, $customer)
+    {
+        $this->book = $book;
+        $this->customer = $customer;
+    }
+
+    /**
+     * Get the message envelope.
+     */
+    public function envelope(): Envelope
+    {
+        return new Envelope(
+            from: new Address('victor@gmail.com', 'SISTEMA de LIBROS'),
+            subject: 'Nuevo libro disponible',
+        );
+    }
+
+    /**
+     * Get the message content definition.
+     */
+    public function content(): Content
+    {
+        return new Content(
+            view: 'mails.newbook',
+        );
+    }
+
+    /**
+     * Get the attachments for the message.
+     *
+     * @return array<int, \Illuminate\Mail\Mailables\Attachment>
+     */
+    public function attachments(): array
+    {
+        return [];
+    }
+}
