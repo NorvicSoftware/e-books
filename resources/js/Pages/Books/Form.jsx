@@ -21,6 +21,7 @@ export default function Form() {
         isbn: "",
         genre_id: "",
         editorial_id: "",
+        detail: "",
     });
 
     const submit = (e) => {
@@ -29,7 +30,7 @@ export default function Form() {
         post(route("books.store"), {
             onSuccess: () => {
                 console.log('OK');
-                                // resetForm();
+                // resetForm();
             },
             onError: (error) => {
                 console.error(error);
@@ -168,6 +169,10 @@ export default function Form() {
                                             <p className=" text-red-500">{errors.isbn}</p>
                                         )}
                                     </div>
+                                </div>
+                                <div>
+                                    <InputLabel>Detalle</InputLabel>
+                                    <input className="block w-full" type="text" name="detail" id="detail" value={data.detail} onChange={(e) => setData('detail', e.target.value)} />
                                 </div>
 
                                 <div className="flex justify-end space-x-2 mt-2">

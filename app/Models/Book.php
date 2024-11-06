@@ -8,6 +8,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\MorphMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
+use Carbon\Carbon;
 
 class Book extends Model
 {
@@ -24,8 +26,28 @@ class Book extends Model
         'ISBN',
         'author_id',
         'genre_id',
-        'editorial_id'
+        'editorial_id',
+        'detail'
     ];
+
+    protected function casts(): array
+    {
+        return [
+            'publish_date' => 'datetime',
+            'page_number' => 'integer',
+        ];
+    }
+
+    protected function publishDate(): Attribute {
+        return Attribute::make(
+            get: function ($value) {
+                return Carbon::createFromFormat('Y-m-d', $value)->format('d/m/Y');
+            },
+            set: function ($value) {
+                return Carbon::createFromFormat('d/m/Y', $value)->format('Y-m-d');
+            }
+        );
+    }
 
     public function author(): BelongsTo
     {
@@ -42,7 +64,8 @@ class Book extends Model
         return $this->belongsTo(Genre::class);
     }
 
-    public function sales() :BelongsToMany {
+    public function sales(): BelongsToMany
+    {
         return $this->belongsToMany(Sale::class);
     }
 
@@ -56,7 +79,8 @@ class Book extends Model
         return $this->morphMany(Comment::class, 'commentable');
     }
 
-    public function scores(): MorphMany {
+    public function scores(): MorphMany
+    {
         return $this->morphMany(Score::class, 'scoreable');
     }
 
