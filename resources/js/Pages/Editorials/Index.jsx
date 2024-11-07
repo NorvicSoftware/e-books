@@ -78,7 +78,7 @@ export default function Index() {
                                     ))}
                                 </tbody>
                             </table>
-                            <div className="mt-6">
+                            <div className="mt-2 mb-0 px-3 flex justify-between items-center">
                                 <Form />
                             </div>
                         </div>

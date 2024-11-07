@@ -3,8 +3,6 @@ import { useForm } from "@inertiajs/react";
 import { useState } from "react";
 
 import IconButton from "@/Components/IconButton";
-import eliminarIcon from "/public/delete.png";
-import closeIcon from "/public/close.png";
 
 export default function Delete({ id, editorial }) {
     const [showModal, setShowModal] = useState(false);
@@ -35,12 +33,10 @@ export default function Delete({ id, editorial }) {
 
     return (
         <>
-            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+            <div className="p-1 bg-gray-200  rounded-lg shadow-lg">
                 <IconButton
-                    icon={eliminarIcon}
-                    label=""
+                    action="delete"
                     onClick={openModal}
-                    className="bg-white-600 hover:bg-gray-200"
                     disabled={false}
                 />
             </div>
@@ -61,23 +57,18 @@ export default function Delete({ id, editorial }) {
                         </p>
                     )}
                     <div className="flex items-center justify-between">
-                        <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                        <div className="p-1 bg-gray-200  rounded-lg shadow-lg">
                             <IconButton
-                                icon={eliminarIcon}
-                                label=""
+                                action="delete"
                                 onClick={submit}
-                                className="hover:bg-gray-200"
                                 disabled={false}
                             />
                         </div>
-                        <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                        <div className="p-1 bg-gray-200  rounded-lg shadow-lg">
                             <IconButton
-                                icon={closeIcon}
-                                label=""
+                                action="cancel"
                                 onClick={closeModal}
-                                className="hover:bg-gray-200"
                                 disabled={false}
-                                href={closeModal}
                             />
                         </div>
                     </div>
