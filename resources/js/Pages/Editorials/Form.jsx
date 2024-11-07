@@ -1,12 +1,7 @@
 import Modal from "@/Components/Modal";
 import { useForm } from "@inertiajs/react";
 import { useState } from "react";
-
 import IconButton from "@/Components/IconButton";
-import newIcon from "/public/new.png";
-import saveIcon from "/public/save.png";
-import editIcon from "/public/edit.png";
-import closeIcon from "/public/close.png";
 
 export default function Form({ id = 0, editorial = {} }) {
     const { data, setData, errors, post, put } = useForm({
@@ -58,19 +53,17 @@ export default function Form({ id = 0, editorial = {} }) {
 
     return (
         <>
-            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+            <div className="p-1 bg-gray-200  rounded-lg shadow-lg">
                 <IconButton
-                    icon={id > 0 ? editIcon : newIcon}
-                    label=""
+                    action={id > 0 ? "edit" : "new"}
                     onClick={openModal}
-                    className="hover:bg-gray-200"
                     disabled={false}
                 />
             </div>
             <Modal show={showModal} onClose={closeModal}>
                 <div className="p-6 bg-white rounded-lg shadow-lg">
                     <h2 className="text-2xl font-semibold mb-4 text-gray-800">
-                        {id > 0 ? "Editar" : "Crear"}
+                        {id > 0 ? "Modificar editorial" : "Nuevo editorial"}
                     </h2>
                     <form onSubmit={submit}>
                         <div className="mb-4">
@@ -168,24 +161,18 @@ export default function Form({ id = 0, editorial = {} }) {
                             )}
                         </div>
                         <div className="flex items-center justify-between">
-                            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                            <div className="p-1 bg-gray-200  rounded-lg shadow-lg">
                                 <IconButton
-                                    icon={id > 0 ? saveIcon : saveIcon}
-                                    label=""
+                                    action="save"
                                     onClick={submit}
-                                    className="hover:bg-gray-200"
                                     disabled={false}
-                                    //href={submit}
                                 />
                             </div>
-                            <div className="p-1 bg-white-600 rounded-lg shadow-lg">
+                            <div className="p-1 bg-gray-200  rounded-lg shadow-lg">
                                 <IconButton
-                                    icon={closeIcon}
-                                    label=""
+                                    action="cancel"
                                     onClick={closeModal}
-                                    className="hover:bg-gray-200"
                                     disabled={false}
-                                    //href={closeModal}
                                 />
                             </div>
                         </div>
