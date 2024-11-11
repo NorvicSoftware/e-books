@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('price_sale', 10, 2)->defaul(0.00);
             $table->enum('language', ['Español', 'English', 'Portugues'])->default('Español');
             $table->integer('page_number')->default(0);
-            $table->string('ISBN', 15)->unique();
+            $table->string('isbn', 15)->unique();
             $table->text('detail')->nullable();
 
             $table->unsignedBigInteger('author_id');

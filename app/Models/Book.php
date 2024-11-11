@@ -23,7 +23,7 @@ class Book extends Model
         'price_sale',
         'language',
         'page_number',
-        'ISBN',
+        'isbn',
         'author_id',
         'genre_id',
         'editorial_id',

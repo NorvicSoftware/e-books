@@ -33,7 +33,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::where('author_id', Auth::user()->id)->get();
+        $books = Book::with(['image', 'genre', 'editorial'])->where('author_id', Auth::user()->id)->get();
         return Inertia::render('Books/Index', ['books' => $books]);
     }
 
@@ -42,9 +42,6 @@ class BookController extends Controller
      */
     public function create()
     {
-        // $genres = Genre::select('id', 'name')->get();
-        // $editorials = Editorial::select('id', 'name')->get();
-
         return Inertia::render('Books/Form', ['genres' => $this->genres->getAllGenres(), 'editorials'=> $this->editorials->getAllEditorial()]);
     }
 
@@ -64,6 +61,7 @@ class BookController extends Controller
             'language' => ['required'],
             'genre_id' => ['required','numeric'],
             'editorial_id' => ['required','numeric'],
+            'file_name' => ['required|file|mimes:png,jpg,jpeg'],
         ]);
 
         try {
@@ -77,18 +75,27 @@ class BookController extends Controller
             $book->publish_date = $request->publish_date;
             $book->version = $request->version;
             $book->page_number = $request->page_number;
-            $book->ISBN = $request->isbn;
+            $book->isbn = $request->isbn;
             $book->language = $request->language;
             $book->author_id = Auth::user()->id;
             $book->genre_id = $request->genre_id;
             $book->editorial_id = $request->editorial_id;
             $book->detail = $request->detail;
             $book->save();
-    
-            $customers = $this->customers->getAllCustomer();
-            foreach($customers as $customer){
-                Mail::to($customer->user->email)->send(new NewBookMail($book, $customer));
+
+            if ($request->hasFile('image')) {
+                $image_path = 'public/images';
+                $image = $request->file('image');
+                $name_image = time() . "-" . $image->getClientOriginalName();
+                $request->file('image')->storeAs($image_path, $name_image);
+
+                $book->image()->create(['url' => $name_image]);
             }
+    
+            // $customers = $this->customers->getAllCustomer();
+            // foreach($customers as $customer){
+            //     Mail::to($customer->user->email)->send(new NewBookMail($book, $customer));
+            // }
 
             DB::commit();
     
@@ -96,7 +103,7 @@ class BookController extends Controller
         }
         catch(\Exception $e){
             DB::rollback();
-            return redirect()->back()->withInput()->withErrors(['error' => 'Error al crear el libro']);
+            return redirect()->back()->withInput()->withErrors(['error' => 'Error al crear el libro' . $e->getMessage()]);
         }
 
 
@@ -117,8 +124,6 @@ class BookController extends Controller
      */
     public function edit(string $id)
     {
-        // $genres = Genre::select('id', 'name')->get();
-        // $editorials = Editorial::select('id', 'name')->get();
         return Inertia::render('Books/Form', ['genres' => $this->genres->getAllGenres(), 'editorials'=> $this->editorials->getAllEditorial()]);
     }
 

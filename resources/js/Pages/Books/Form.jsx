@@ -22,6 +22,7 @@ export default function Form() {
         genre_id: "",
         editorial_id: "",
         detail: "",
+        image: "",
     });
 
     const submit = (e) => {
@@ -169,6 +170,10 @@ export default function Form() {
                                             <p className=" text-red-500">{errors.isbn}</p>
                                         )}
                                     </div>
+                                </div>
+                                <div>
+                                    <InputLabel>Imagen</InputLabel>
+                                    <input className="block w-full" type="file" name="image" id="image" onChange={(e) => setData('image', e.target.files[0])} />
                                 </div>
                                 <div>
                                     <InputLabel>Detalle</InputLabel>

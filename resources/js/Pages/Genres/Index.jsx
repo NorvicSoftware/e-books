@@ -55,7 +55,6 @@ export default function Index() {
                                     ))}
                                 </tbody>
                             </table>
-                            <Form />
                         </div>
                     </div>
                 </div>

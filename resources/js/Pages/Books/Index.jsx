@@ -1,6 +1,7 @@
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import { usePage, Link } from "@inertiajs/react";
 import LinkButton from "@/Components/LinkButton";
+import Show from "./Show";
 export default function Index(){
     const { books } = usePage().props;
 
@@ -58,11 +59,10 @@ export default function Index(){
                                             <td className="px-6 py-4 text-left text-sm">{book.version}</td>
                                             <td className="px-6 py-4 text-left text-sm">{book.publish_date}</td>
                                             <td className="px-6 py-4 text-left text-sm">{book.price_sale}</td>
-                                            <td className="px-6 py-4 text-left text-sm">{book.ISBN}</td>
+                                            <td className="px-6 py-4 text-left text-sm">{book.isbn}</td>
                                             <td className="px-6 py-4 text-left text-sm ">
                                                 <div className="flex justify-end space-x-2">
-                                                    {/* <Form lang1 ={lang1.lang} id={book.id} book={genre} />
-                                                    <Delete id={genre.id} book={genre} /> */}
+                                                    <Show book={book} />
                                                 </div>
                                             </td>
                                         </tr>

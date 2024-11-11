@@ -4,19 +4,13 @@ import { useForm } from "@inertiajs/react";
 import { HiMiniPencilSquare } from "react-icons/hi2";
 import CreateButton from "@/Components/CreateButton";
 import CancelButton from "@/Components/CancelButton";
+import { toast } from 'react-toastify';
 import es from "@/lang/es";
 import en from "@/lang/en";
 
-export default function Form({ lang1='en', id = 0, genre = {} }) {
+export default function Form({ lang1='es', id = 0, genre = {} }) {
     const [showModal, setShowModal] = useState(false);
     const { data, setData, errors, post, put } = useForm({ name: '', type: '', description: '' });
-
-
-    // console.log('lang1:', lang1);
-
-    // function openModal() {
-
-    // }
 
     const openModal = () => {
         setShowModal(true);
@@ -35,21 +29,33 @@ export default function Form({ lang1='en', id = 0, genre = {} }) {
         if (id > 0) {
             put(route('genres.update', id), {
                 onSuccess: () => {
+                    if(res.props.flash.status){
+                        toast.success(res.props.flash.message);
+                    }
+                    else {
+                        toast.error(res.props.flash.message);
+                    }
                     setShowModal(false);
                 },
                 onError: (errors) => {
-                    console.log(errors);
+                    toast.error('Existe Errores en el formulario');
+                    // console.log(errors);
                 },
             })
         }
         else {
             post(route('genres.store'), {
                 onSuccess: (response) => {
-                    console.log(response);
+                    if(res.props.flash.status){
+                        toast.success(res.props.flash.message);
+                    }
+                    else {
+                        toast.error(res.props.flash.message);
+                    }
                     setShowModal(false);
                 },
                 onError: (errors) => {
-                    console.log(errors);
+                    toast.error('Existe Errores en el formulario');
                 },
             })
         }
@@ -73,21 +79,6 @@ export default function Form({ lang1='en', id = 0, genre = {} }) {
                         {errors.name && (
                             <p className=" text-red-500">{errors.name}</p>
                         )}
-                        {/* <label>Tipo</label> */}
-                        {/* <input className=" block w-full" name="type" type="text" placeholder="Tipo" value={data.type} onChange={(e) => setData('type', e.target.value)} maxLength={35} /> */}
-                        {/* <select  className="block w-full" value={data.type} onChange={(e) => setData('type', e.target.value)}>
-                            <option value="">Seleccione un tipo</option>
-                            <option value="Fantástico">Fantástico</option>
-                            <option value="Terror">Terror</option>
-                            <option value="Misterio">Misterio</option>
-                            <option value="Romance">Romance</option>
-                            <option value="Drama">Drama</option>
-                            <option value="Ciencia Ficción">Ciencia Ficción</option>
-                            <option value="Otros">Otros</option>
-                        </select>
-                        {errors.type && (
-                            <p className=" text-red-500">{errors.type}</p>
-                        )} */}
                         <label>Descripción</label>
                         <input className=" block w-full" name="description" type="text" placeholder="Descripcion" value={data.description} onChange={(e) => setData('description', e.target.value)} />
                         <div className="flex justify-end space-x-2 mt-2">
