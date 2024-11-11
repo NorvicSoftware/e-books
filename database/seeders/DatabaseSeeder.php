@@ -19,14 +19,15 @@ class DatabaseSeeder extends Seeder
         $this->call(GenreSeeder::class);
         $this->call(UserSeeder::class);
         $this->call(CommentSeeder::class);
+        User::factory(10)->create();
         $this->call(AuthorSeeder::class);
         $this->call(CustomerSeeder::class);
-        $this->call(SaleSeeder::class);
+        // $this->call(SaleSeeder::class);
         // $this->call(UserableSeeder::class);
         Editorial::factory(10)->create();
-        User::factory(50)->create();
-        Author::factory(50)->create();
-        User::factory(10)->create();
-        Author::factory(10)->create();
+        
+        // Author::factory(50)->create();
+        // User::factory(10)->create();
+        // Author::factory(10)->create();
     }
 }

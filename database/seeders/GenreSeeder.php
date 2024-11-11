@@ -14,18 +14,33 @@ class GenreSeeder extends Seeder
     public function run(): void
     {
         Genre::create([
-            'name' => 'Narrativo',
-            'description' => 'Genero Narrativo'
+            'name' => 'Ciencia Ficción',
+            'description' => 'Genero Ciencia Ficción'
         ]);
 
         Genre::create([
-            'name' => 'Dramático',
-            'description' => 'Genero Dramático'
+            'name' => 'Fantasía',
+            'description' => 'Genero Fantasía'
         ]);
 
         Genre::create([
-            'name' => 'Didáctico',
-            'description' => 'Genero Didáctico'
+            'name' => 'Biografía',
+            'description' => 'Genero Biografía'
+        ]);
+
+        Genre::create([
+            'name' => 'Ciencia',
+            'description' => 'Genero Ciencia'
+        ]);
+
+        Genre::create([
+            'name' => 'Documental',
+            'description' => 'Genero Documental'
+        ]);
+
+        Genre::create([
+            'name' => 'Cómics',
+            'description' => 'Genero Cómics'
         ]);
     }
 }

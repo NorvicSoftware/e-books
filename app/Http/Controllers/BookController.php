@@ -33,7 +33,7 @@ class BookController extends Controller
      */
     public function index()
     {
-        $books = Book::with(['image', 'genre', 'editorial'])->where('author_id', Auth::user()->id)->get();
+        $books = Book::with(['image', 'genre', 'editorial', 'author.user'])->where('author_id', Auth::user()->id)->get();
         return Inertia::render('Books/Index', ['books' => $books]);
     }
 

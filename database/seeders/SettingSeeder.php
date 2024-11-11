@@ -13,7 +13,7 @@ class SettingSeeder extends Seeder
     public function run(): void
     {
         \App\Models\Setting::create([
-            'lang' => 'en',
+            'lang' => 'es',
         ]);
     }
 }

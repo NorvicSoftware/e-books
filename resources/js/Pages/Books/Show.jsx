@@ -31,8 +31,8 @@ export default function Show({ book }) {
                             </div>
                             <div>
                             <p className="text-sm font-medium text-gray-800">Título: { book.title }</p>
-                            <p className="text-sm font-medium text-gray-800">Título: { book.subtitle }</p>
-                            <p className="text-sm font-medium text-gray-800">Autor: { book.author }</p>
+                            <p className="text-sm font-medium text-gray-800">Subtítulo: { book.subtitle }</p>
+                            <p className="text-sm font-medium text-gray-800">Autor: { book.author?.user?.name }</p>
                             <p className="text-sm font-medium text-gray-800">Precio de venta: { book.price_sale }</p>
                             <p className="text-sm font-medium text-gray-800">Año de publicación: { book.publication_year }</p>
                             <p className="text-sm font-medium text-gray-800">ISBN: { book.isbn }</p>
