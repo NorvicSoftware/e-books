@@ -22,12 +22,16 @@ class UserSeeder extends Seeder
         $user->remember_token = 'nNFLQjr89Qt';
         $user->save();
 
-        $user = new User();
-        $user->name = 'Luis Perez';
-        $user->email = 'luis@email.com';
-        $user->email_verified_at ="2024-10-10";
-        $user->password = bcrypt('password');
-        $user->remember_token = 'nNFLQjr89Qt';
-        $user->save();
+        $user->assignRole('admin');
+
+        $user1 = new User();
+        $user1->name = 'Luis Perez';
+        $user1->email = 'luis@email.com';
+        $user1->email_verified_at ="2024-10-10";
+        $user1->password = bcrypt('password');
+        $user1->remember_token = 'nNFLQjr89Qt';
+        $user1->save();
+
+        $user1->assignRole('admin');
     }
 }

@@ -30,10 +30,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::controller(GenreController::class)->group(function () {
-        Route::get('/genres', 'index')->name('genres.index');
-        Route::post('/genres', 'store')->name('genres.store');
-        Route::put('/genres/{id}', 'update')->name('genres.update');
-        Route::delete('/genres/{id}', 'destroy')->name('genres.delete');
+        Route::get('/genres', 'index')->name('genres.index')->middleware(['permission:genre-read']);
+        Route::post('/genres', 'store')->name('genres.store')->middleware(['permission:genre-write']);
+        Route::put('/genres/{id}', 'update')->name('genres.update')->middleware(['permission:genre-write']);
+        Route::delete('/genres/{id}', 'destroy')->name('genres.delete')->middleware(['permission:genre-write']);
     });
 
 

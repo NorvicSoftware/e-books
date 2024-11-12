@@ -8,9 +8,12 @@ import { ToastContainer } from 'react-toastify';
 
 export default function Authenticated({ header, children }) {
     const user = usePage().props.auth.user;
-    // const lang = usePage().props.auth.lang;
 
-    // console.log('setting lang:', lang.lang);
+    console.log('user:', user);
+
+    const hasPermissions = (item) => {
+        return user.roles[0].permissions.some(permission => permission.name === item);
+    }
 
     const [showingNavigationDropdown, setShowingNavigationDropdown] =
         useState(false);
@@ -36,54 +39,67 @@ export default function Authenticated({ header, children }) {
                                     Dashboard
                                 </NavLink>
                             </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route("genres.index")}
-                                    active={route().current("genres.index")}
-                                >
-                                    Generos
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route("customers.index")}
-                                    active={route().current("customers.index")}
-                                >
-                                    Clientes
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route("editorials.index")}
-                                    active={route().current("editorials.index")}
-                                >
-                                    Editoriales
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route("books.index")}
-                                    active={route().current("books.index")}
-                                >
-                                    Libros
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route("users.index")}
-                                    active={route().current("users.index")}
-                                >
-                                    usuarios
-                                </NavLink>
-                            </div>
-                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
-                                <NavLink
-                                    href={route("authors.index")}
-                                    active={route().current("authors.index")}
-                                >
-                                    Autores
-                                </NavLink>
-                            </div>
+                            {hasPermissions('genre-read') && (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink
+                                        href={route("genres.index")}
+                                        active={route().current("genres.index")}
+                                    >
+                                        Generos
+                                    </NavLink>
+                                </div>
+                            )}
+                            {hasPermissions('editorial-read') && (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink
+                                        href={route("editorials.index")}
+                                        active={route().current("editorials.index")}
+                                    >
+                                        Editoriales
+                                    </NavLink>
+                                </div>
+                            )}
+                            {hasPermissions('customer-read') && (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink
+                                        href={route("customers.index")}
+                                        active={route().current("customers.index")}
+                                    >
+                                        Clientes
+                                    </NavLink>
+                                </div>
+                            )}
+                            {hasPermissions('book-read') && (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink
+                                        href={route("books.index")}
+                                        active={route().current("books.index")}
+                                    >
+                                        Libros
+                                    </NavLink>
+                                </div>
+                            )}
+                            {hasPermissions('user-read') && (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink
+                                        href={route("users.index")}
+                                        active={route().current("users.index")}
+                                    >
+                                        usuarios
+                                    </NavLink>
+                                </div>
+                            )}
+                            {hasPermissions('author-read') && (
+                                <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                    <NavLink
+                                        href={route("authors.index")}
+                                        active={route().current("authors.index")}
+                                    >
+                                        Autores
+                                    </NavLink>
+                                </div>
+                            )}
+
                         </div>
 
                         <div className="hidden sm:ms-6 sm:flex sm:items-center">

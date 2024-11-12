@@ -8,10 +8,13 @@ import { useState } from "react";
 
 export default function Index() {
     const { genres } = usePage().props;
+    const user = usePage().props.auth.user;
     const lang1 = usePage().props.auth.lang;
-    const [searchGenres, setSeachGenres] = useState(''); 
+    const [searchGenres, setSeachGenres] = useState('');
 
-    console.log(lang1.lang);
+    const hasPermissions = (item) => {
+        return user.roles[0].permissions.some(permission => permission.name === item);
+    }
 
     const filteredGenres = genres.filter(genre => genre.name.toLowerCase().includes(searchGenres.toLowerCase()));
 
@@ -23,9 +26,11 @@ export default function Index() {
                         <div className="p-6 text-gray-900">
                             <div className=" flex justify-between">
                                 <TextInput type="text" placeholder="Buscar..." onChange={(e) => setSeachGenres(e.target.value)} />
-                                <Form lang1={lang1.lang}/>
+                                {hasPermissions('genre-write') && (
+                                    <Form lang1={lang1.lang} />
+                                )}
                             </div>
-                            
+
                             <table className="table-auto w-full mt-2">
                                 <thead className="bg-gray-200">
                                     <tr>
@@ -47,8 +52,13 @@ export default function Index() {
                                             <td className="px-6 py-4 text-left text-sm">{genre.description}</td>
                                             <td className="px-6 py-4 text-left text-sm ">
                                                 <div className="flex justify-end space-x-2">
-                                                    <Form lang1 ={lang1.lang} id={genre.id} genre={genre} />
-                                                    <Delete id={genre.id} genre={genre} />
+                                                    {hasPermissions('genre-write') && (
+                                                        <>
+                                                            <Form lang1={lang1.lang} id={genre.id} genre={genre} />
+                                                            <Delete id={genre.id} genre={genre} />
+                                                        </>
+                                                    )}
+
                                                 </div>
                                             </td>
                                         </tr>
