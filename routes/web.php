@@ -45,10 +45,10 @@ Route::middleware('auth')->group(function () {
     });
 
     Route::controller(EditorialController::class)->group(function () {
-        Route::get('/editorials', 'index')->name('editorials.index');
-        Route::post('/editorials', 'store')->name('editorials.store');
-        Route::put('/editorials/{id}', 'update')->name('editorials.update');
-        Route::delete('/editorials/{id}', 'destroy')->name('editorials.delete');
+        Route::get('/editorials', 'index')->name('editorials.index')->middleware(['permission:editorial-read']);
+        Route::post('/editorials', 'store')->name('editorials.store')->middleware(['permission:editorial-write']);
+        Route::put('/editorials/{id}', 'update')->name('editorials.update')->middleware(['permission:editorial-write']);
+        Route::delete('/editorials/{id}', 'destroy')->name('editorials.delete')->middleware(['permission:editorial-write']);
     });
 
     Route::controller(UserController::class)->group(function () {
