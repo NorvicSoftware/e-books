@@ -2,9 +2,16 @@ import { usePage } from "@inertiajs/react";
 import AuthenticatedLayout from "@/Layouts/AuthenticatedLayout";
 import Form from "./Form";
 import Delete from "./Delete";
+import TextInput from "@/Components/TextInput";
+import { useState } from "react";
 
 export default function Index() {
     const { editorials } = usePage().props;
+    const [lang1, setLang1] = useState({ lang: "es" });
+    const [searchEditorials, setSeachEditorials] = useState("");
+    const filteredEditorials = editorials.filter((editorial) =>
+        editorial.name.toLowerCase().includes(searchEditorials.toLowerCase())
+    );
 
     return (
         <AuthenticatedLayout
@@ -22,7 +29,17 @@ export default function Index() {
                                 <h3 className="text-lg font-medium text-gray-800">
                                     Agregar Nueva Editorial
                                 </h3>
-                                <Form />
+                            </div>
+                            <div className=" flex justify-between  items-left">
+                                <TextInput
+                                    className="h-12 w-80"
+                                    type="text"
+                                    placeholder="Filtrar nombre..."
+                                    onChange={(e) =>
+                                        setSeachEditorials(e.target.value)
+                                    }
+                                />
+                                <Form lang1={lang1.lang} />
                             </div>
                             <table className="table-auto w-full text-left">
                                 <thead>
@@ -45,7 +62,8 @@ export default function Index() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {editorials.map((editorial) => (
+                                    {filteredEditorials.map((editorial) => (
+                                        // {editorials.map((editorial) => (
                                         <tr
                                             key={editorial.id}
                                             className="bg-white border-b"
