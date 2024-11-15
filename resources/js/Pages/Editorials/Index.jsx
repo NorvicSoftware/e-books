@@ -7,12 +7,23 @@ import { useState } from "react";
 
 export default function Index() {
     const { editorials } = usePage().props;
+    const user = usePage().props.auth.user;
+
     const [lang1, setLang1] = useState({ lang: "es" });
     const [searchEditorials, setSeachEditorials] = useState("");
     const filteredEditorials = editorials.filter((editorial) =>
         editorial.name.toLowerCase().includes(searchEditorials.toLowerCase())
     );
 
+    const hasPermissions = (item) => {
+        return user.roles[0].permissions.some(
+            (permission) => permission.name === item
+        );
+    };
+
+    // console.log("Permiso->", hasPermissions("genre-write"));
+
+    // {hasPermissions('genre-write') && (<Form lang1={lang1.lang} />)}
     return (
         <AuthenticatedLayout
             header={
@@ -26,8 +37,10 @@ export default function Index() {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             <div className="flex justify-between items-center mb-6">
-                                <h3 className="text-lg font-medium text-gray-800">
-                                    Agregar Nueva Editorial
+                                <h3 className="text-2xl font-medium text-gray-800">
+                                    {hasPermissions("editorial-write")
+                                        ? "Administrar Editoriales"
+                                        : "Lista de Editoriales"}
                                 </h3>
                             </div>
                             <div className=" flex justify-between  items-left">
@@ -39,7 +52,9 @@ export default function Index() {
                                         setSeachEditorials(e.target.value)
                                     }
                                 />
-                                <Form lang1={lang1.lang} />
+                                {hasPermissions("editorial-write") && (
+                                    <Form lang1={lang1.lang} />
+                                )}
                             </div>
                             <table className="table-auto w-full text-left">
                                 <thead>
@@ -57,7 +72,9 @@ export default function Index() {
                                             Dirección
                                         </th>
                                         <th className="px-6 py-3 bg-gray-50 text-gray-500 font-medium uppercase tracking-wider">
-                                            Acción
+                                            {hasPermissions("editorial-write")
+                                                ? "Acción"
+                                                : ""}
                                         </th>
                                     </tr>
                                 </thead>
@@ -81,24 +98,34 @@ export default function Index() {
                                                 {editorial.address}
                                             </td>
                                             <td className="px-6 py-4 text-sm text-gray-800">
-                                                <div className="flex space-x-2">
-                                                    <Form
-                                                        id={editorial.id}
-                                                        editorial={editorial}
-                                                    />
-                                                    <Delete
-                                                        id={editorial.id}
-                                                        editorial={editorial}
-                                                    />
-                                                </div>
+                                                {hasPermissions(
+                                                    "editorial-write"
+                                                ) && (
+                                                    <div className="flex space-x-2">
+                                                        <Form
+                                                            id={editorial.id}
+                                                            editorial={
+                                                                editorial
+                                                            }
+                                                        />
+                                                        <Delete
+                                                            id={editorial.id}
+                                                            editorial={
+                                                                editorial
+                                                            }
+                                                        />
+                                                    </div>
+                                                )}
                                             </td>
                                         </tr>
                                     ))}
                                 </tbody>
                             </table>
-                            <div className="mt-2 mb-0 px-3 flex justify-between items-center">
-                                <Form />
-                            </div>
+                            {hasPermissions("editorial-write") && (
+                                <div className="mt-2 mb-0 px-3 flex justify-between items-center">
+                                    <Form />
+                                </div>
+                            )}
                         </div>
                     </div>
                 </div>
