@@ -10,6 +10,7 @@ use App\Http\Controllers\CustomerController;
 use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookController;
+use App\Http\Controllers\Reports\ReportAuthorBooksController;
 
 Route::get('/', function () {
     return Inertia::render('Welcome', [
@@ -72,6 +73,13 @@ Route::middleware('auth')->group(function () {
         // Route::put('/books/{id}', 'update')->name('books.update');
         // Route::delete('/books/{id}', 'destroy')->name('books.delete');
     });
+
+    Route::controller(ReportAuthorBooksController::class)->group(function () {
+        Route::get('/reports/author/books', 'list')->name('reports.author.books');
+        Route::post('/reports/author/books/search', 'search')->name('reports.author.books.search');
+    });
+
+    
 });
 
 require __DIR__ . '/auth.php';

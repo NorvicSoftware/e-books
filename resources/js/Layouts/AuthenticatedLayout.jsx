@@ -99,6 +99,14 @@ export default function Authenticated({ header, children }) {
                                     </NavLink>
                                 </div>
                             )}
+                            <div className="hidden space-x-8 sm:-my-px sm:ms-10 sm:flex">
+                                <NavLink
+                                    href={route("reports.author.books")}
+                                    active={route().current("reports.author.books")}
+                                >
+                                    Reporte de libros por author
+                                </NavLink>
+                            </div>
 
                         </div>
 
