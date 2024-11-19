@@ -27,7 +27,10 @@ export default function Show({ book }) {
                         <h2 className="text-red-600 font-semibold">DETALLES DEL LIBRO</h2>
                         <div className="grid grid-cols-2 gap-4 mt-2">
                             <div>
-                                <img src={'/storage/images/' + book.image[0].url} className="w-full h-64 object-cover" />
+                                {book.image.length > 0 && (
+                                    <img src={'/storage/images/' + book.image[0].url} className="w-full h-64 object-cover" />
+                                ) }
+                                
                             </div>
                             <div>
                             <p className="text-sm font-medium text-gray-800">Título: { book.title }</p>
