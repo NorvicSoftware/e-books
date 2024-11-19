@@ -35,7 +35,7 @@ export default function Index() {
                     <div className="overflow-hidden bg-white shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900">
                             <form>
-                                <div className="grid grid-cols-3 ">
+                                <div className="grid grid-cols-3 gap-4 ">
                                     <div>
                                         <InputLabel>Author</InputLabel>
                                         <TextInput className="block w-full" type="text" name="author" id="author" value={data.author} onChange={(e) => setData('author', e.target.value)} />
@@ -51,6 +51,8 @@ export default function Index() {
                                 </div>
                                 <div className="flex justify-end space-x-2 mt-2">
                                     <CreateButton type="submit" onClick={submit}>Buscar</CreateButton>
+                                    <a href={route('reports.author.books.pdf', [data.nationality === '' ? 'Todos': data.nationality, data.author === '' ? 'Todos' : data.author, data.book_count === '' ? 'Todos': data.book_coun] )}>REPORTE PDF</a>
+                                    <a href={route('reports.author.books.excel', [data.nationality === '' ? 'Todos': data.nationality, data.author === '' ? 'Todos' : data.author, data.book_count === '' ? 'Todos': data.book_coun] )}>REPORTE EXCEL</a>
                                     {/* <LinkButton className="bg-gray-500 hover:bg-gray-600" href={route('books.index')}>{es.button.cancel}</LinkButton> */}
                                 </div>
                             </form>

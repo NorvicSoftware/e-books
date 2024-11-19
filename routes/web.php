@@ -11,15 +11,18 @@ use App\Http\Controllers\EditorialController;
 use App\Http\Controllers\UserController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\Reports\ReportAuthorBooksController;
+use App\Http\Controllers\CartController;
 
-Route::get('/', function () {
-    return Inertia::render('Welcome', [
-        'canLogin' => Route::has('login'),
-        'canRegister' => Route::has('register'),
-        'laravelVersion' => Application::VERSION,
-        'phpVersion' => PHP_VERSION,
-    ]);
-});
+// Route::get('/', function () {
+//     return Inertia::render('Welcome', [
+//         'canLogin' => Route::has('login'),
+//         'canRegister' => Route::has('register'),
+//         'laravelVersion' => Application::VERSION,
+//         'phpVersion' => PHP_VERSION,
+//     ]);
+// });
+
+Route::get('/', [CartController::class, 'index']);
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');
@@ -77,6 +80,8 @@ Route::middleware('auth')->group(function () {
     Route::controller(ReportAuthorBooksController::class)->group(function () {
         Route::get('/reports/author/books', 'list')->name('reports.author.books');
         Route::post('/reports/author/books/search', 'search')->name('reports.author.books.search');
+        Route::get('/reports/author/books/pdf/{nationality}/{author}/{count}', 'pdf')->name('reports.author.books.pdf');
+        Route::get('/reports/author/books/excel/{nationality}/{author}/{count}', 'excel')->name('reports.author.books.excel');
     });
 
     

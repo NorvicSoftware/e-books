@@ -7,51 +7,46 @@ use Illuminate\Http\Request;
 use App\Models\Author;
 use App\Models\Book;
 use Inertia\Inertia;
+use Illuminate\Support\Facades\DB;
+use Barryvdh\DomPDF\Facade\Pdf;
+use App\Exports\AuthorBookExport;
+use Maatwebsite\Excel\Facades\Excel;
+use App\Repositories\BookRepository;
 
 
 
 class ReportAuthorBooksController extends Controller
 {
+    protected $books;
+
+    public function __construct(BookRepository $books){
+        $this->books = $books;
+    }
     public function list()
     {
-        $authors = Author::with('user')->get();
-        foreach ($authors as $index => $author) {
-            $authors[$index]->books_count = Book::where('author_id', $author->id)->count();
-        }
+
+        $authors = Author::with('user')->withCount('books')->get();
         return Inertia::render('Reports/Books/List', ['authors' => $authors]);
     }
 
     public function search(Request $request)
     {
-        if ($request->author !== '') {
-            $authors =  Author::whereHas('user', function ($query) use ($request) {
-                $query->where('name', 'like',  '%'. $request->author . '%');
-            })->with('user')->where('nationality', $request->nationality)->get();
+        return Inertia::render('Reports/Books/List', ['authors' => $this->books->getAuthorCountBooks($request->nationality, $request->author, $request->count)]);
+    }
 
-            // $authors->get();
-        }
-        if ($request->nationality !== '') {
-            $authors =  Author::whereHas('user', function ($query) use ($request) {
-                $query->where('name', 'like',  '%'. $request->author . '%');
-            })->with('user')->where('nationality', $request->nationality)->get();
+    public function pdf($nationality , $author, $count) {
+        
+        $data = [
+            'authors' => $this->books->getAuthorCountBooks($nationality, $author, $count),
+        ];
+        $pdf = PDF::loadView('reports.books.pdf', $data);
+        return $pdf->download('reportes_autores_libros.pdf');
+    }
 
-            // $authors->get();
-        }
-        if ($request->count !== '') {
-            $authors =  Author::whereHas('user', function ($query) use ($request) {
-                $query->where('name', 'like',  '%'. $request->author . '%');
-            })->with('user')->where('nationality', $request->nationality)->get();
+    public function excel ($nationality, $author, $count) {
+        return Excel::download(new AuthorBookExport($this->books->getAuthorCountBooks($nationality, $author, $count)), 'reportes_autores_libros.xlsx');
 
-            // $authors->get();
-        }
-        else{
-            $authors = Author::with('user')->where('nationality', $request->nationality)->get();
-            // $authors->get();
-        }
 
-        foreach ($authors as $index => $author) {
-            $authors[$index]->books_count = Book::where('author_id', $author->id)->count();
-        }
-        return Inertia::render('Reports/Books/List', ['authors' => $authors]);
+
     }
 }
