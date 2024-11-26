@@ -24,6 +24,7 @@ use App\Http\Controllers\CartController;
 
 Route::get('/', [CartController::class, 'index'])->name('book.cart');
 Route::get('/view/cart', [CartController::class, 'view'])->name('view.cart');
+Route::post('/view/cart', [CartController::class, 'store'])->name('view.cart.store');
 
 Route::get('/dashboard', function () {
     return Inertia::render('Dashboard');

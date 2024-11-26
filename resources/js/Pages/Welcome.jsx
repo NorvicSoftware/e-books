@@ -53,12 +53,18 @@ export default function Welcome({ auth }) {
                                     >
                                         Ir al carrito
                                     </Link>
-                                    <Link
-                                        href={route('login')}
-                                        className="text-blue-300 hover:text-blue-500"
-                                    >
-                                        Iniciar sesion
-                                    </Link>
+                                    {auth.user ? (
+                                        <span className="text-blue-700 font-semibold">{auth.user.name}</span>
+                                    )
+                                        : (
+                                            <Link
+                                                href={route('login')}
+                                                className="text-blue-300 hover:text-blue-500"
+                                            >
+                                                Iniciar sesion
+                                            </Link>
+                                        )
+                                    }
                                 </div>
                             </div>
                         </header>

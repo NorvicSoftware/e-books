@@ -27,6 +27,8 @@ return new class extends Migration
             $table->id();
             $table->unsignedBigInteger('sale_id');
             $table->unsignedBigInteger('book_id');
+            $table->decimal('price_sale', 8, 2);
+            $table->integer('quantity');
 
             $table->foreign('sale_id')->references('id')->on('sales')->onDelete('cascade');
             $table->foreign('book_id')->references('id')->on('books')->onDelete('cascade');
