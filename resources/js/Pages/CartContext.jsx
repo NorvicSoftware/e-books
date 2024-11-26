@@ -11,6 +11,9 @@ export const CartProvider = ({children}) => {
         return savedCart? JSON.parse(savedCart) : [];
 
     });
+
+    const totalPrice = cart.reduce((sum, cart) => sum + cart.price_sale * cart.quantity, 0);
+
     
     useEffect(() => {
         localStorage.setItem('cart', JSON.stringify(cart));
@@ -18,8 +21,6 @@ export const CartProvider = ({children}) => {
 
     //metodos
     const addBook = (book) => {
-        // console.log('anadir', book);
-        // const existingBook = 
         setCart((aux) => {
             const existingBook = aux.find(book => book.id === aux.id);
             if (existingBook) {
@@ -31,14 +32,28 @@ export const CartProvider = ({children}) => {
         console.log('carrito de compras:', cart);
     }
 
-    const removeBook = () => {
-        console.log('eliminar');
+    const updateQuantity = (id, quantity) => {
+        setCart((aux) => aux.map(book => book.id === id? {...book, quantity} : book));
+    }
+
+    const clearCart = () => {
+        setCart([]);
+        // localStorage.removeItem('cart');
+        // console.log('carrito de compras limpio');
+    }
+
+    const removeBook = (id) => {
+        setCart((aux) => aux.filter(book => book.id !== id));
     }
 
     return (
         <CartContext.Provider value={{
             cart,
-            addBook
+            addBook,
+            clearCart,
+            removeBook,
+            totalPrice,
+            updateQuantity
         }}>
             {children}
         </CartContext.Provider>

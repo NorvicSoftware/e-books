@@ -1,12 +1,77 @@
 import { useCartContext } from "./CartContext"
-import { Head, Link } from "@inertiajs/react";
+import { Head, Link, useForm } from "@inertiajs/react";
+import { toast } from 'react-toastify';
+import { PayPalButtons } from "@paypal/react-paypal-js";
 
 
-export default function ViewCart() {
 
-    const { cart, eliminarcart, count } = useCartContext();
+export default function ViewCart({ auth }) {
 
-    console.log(cart);
+    const { cart, eliminarcart, count, clearCart, removeBook, totalPrice, updateQuantity } = useCartContext();
+
+
+    const { data, setData, post } = useForm({
+        cart: [],
+    });
+
+    console.log('auth', auth);
+
+    const createOrder = (data, actions) =>{
+        console.log('create order......');
+        return actions.order.create({
+            intent: 'CAPTURE',
+            purchase_units: [
+                {
+                    amount: {
+                        currency_code: 'USD',
+                        value: totalPrice,
+                    },
+                    // items: cart.map((book) => ({
+                    //     name: book.title,
+                    //     quantity: book.quantity,
+                    //     price: book.price,
+                    //     category: 'PHYSICAL_GOODS',
+                    // })),
+                },
+            ],
+        })
+    }
+
+    const onApprove = async (data, actions) => {
+        console.log('Confirmacion del pago');
+        return actions.order.capture().then((details) => {
+            console.log('detalle....', details.payer.name.given_name);
+            clearCart();
+            submitBook();
+            // clearCart();
+        })
+    }
+    function onError() {
+        console.log('error al pagar con Paypal');
+    }
+
+    const submitBook = () => {
+        // e.preventDefault();
+        console.log(cart);
+        // setData('cart', cart);
+        data.cart = cart;
+        // data.cart = cart;
+        console.log('cart', data);
+        post(route('view.cart.store'), {
+            onSuccess: (response) => {
+                console.log(response);
+                if(response.props.flash.status){
+                    toast.success(response.props.flash.message);
+                }
+                else {
+                    toast.error(response.props.flash.message);
+                }
+            },
+            onError: (errors) => {
+                toast.error('Existe Errores en el formulario', errors);
+            },
+        });
+    }
 
     return (
         <>
@@ -26,17 +91,24 @@ export default function ViewCart() {
                                     >
                                         Ver mas libros
                                     </Link>
-                                    <Link
-                                        href={route('login')}
-                                        className="text-blue-300 hover:text-blue-500"
-                                    >
-                                        Iniciar sesion
-                                    </Link>
+                                    {auth.user ? (
+                                        <span className="text-blue-700 font-semibold">{auth.user.name}</span>
+                                    )
+                                        : (
+                                            <Link
+                                                href={route('login')}
+                                                className="text-blue-300 hover:text-blue-500"
+                                            >
+                                                Iniciar sesion
+                                            </Link>
+                                        )
+                                    }
+
                                 </div>
                             </div>
                         </header>
                         <main className="mt-6">
-                            <div className='grid grid-cols-6 gap-4'>
+                            <div>
                                 <table>
                                     <thead>
                                         <tr>
@@ -53,9 +125,9 @@ export default function ViewCart() {
                                             <tr key={item.id}>
                                                 <td>
                                                     {item.image.length > 0 ? (
-                                                        <img src={'/storage/images/' + item.image[0].url} alt="Portada del libro" className="w-full h-auto rounded-md" />
+                                                        <img src={'/storage/images/' + item.image[0].url} alt="Portada del libro" className="w-full h-36 rounded-md" />
                                                     ) : (
-                                                        <img src="http://placehold.it/200x300" alt="Portada del libro" className="w-full h-auto rounded-md" />
+                                                        <img src="http://placehold.it/200x300" alt="Portada del libro" className="w-full h-36 rounded-md" />
                                                     )}
                                                 </td>
                                                 <td>{item.title}</td>
@@ -64,13 +136,13 @@ export default function ViewCart() {
                                                     <input
                                                         type="number"
                                                         value={item.quantity}
-                                                    // onChange={(e) => setQuantity(item.id, e.target.value)}
+                                                        onChange={(e) => updateQuantity(item.id, e.target.value)}
                                                     />
                                                 </td>
                                                 <td>{item.price_sale * item.quantity}</td>
                                                 <td>
                                                     <button
-                                                    // onClick={() => removeFromCart(item.id)}
+                                                        onClick={() => removeBook(item.id)}
                                                     >
                                                         Eliminar
                                                     </button>
@@ -78,14 +150,41 @@ export default function ViewCart() {
                                             </tr>
                                         ))}
                                     </tbody>
-
+                                    <tfoot>
+                                        <tr>
+                                            <td colSpan="5" className=" font-semibold">Total</td>
+                                            <td className="text-right font-semibold">{Number(totalPrice).toFixed(2)}</td>
+                                        </tr>
+                                    </tfoot>
                                 </table>
+                                <button className="text-blue-800 p-4" onClick={() => clearCart()}>Limpiar carrito</button>
+                                {auth.user ? (
+                                    <PayPalButtons
+                                        createOrder={createOrder}
+                                        onApprove={onApprove}
+                                        onError={onError}
+                                    />
+                                        // <button onClick={submitBook}>Comprar Ahora</button>
+
+                                    )
+                                        : (
+                                            <Link
+                                                href={route('login')}
+                                                className="text-blue-300 hover:text-blue-500"
+                                            >
+                                                Iniciar sesion para realizar la compra
+                                            </Link>
+                                        )
+                                    }
                             </div>
                         </main>
+                        <div>
+
+                        </div>
 
                     </div>
-                </div>
-            </div>
+                </div >
+            </div >
         </>
     );
 }
